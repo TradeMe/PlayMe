@@ -11,6 +11,8 @@ Documentation is being added slowly, but hopefully there is enough [in the wiki]
 
 Props to [Alexandr](https://github.com/Alxandr) for his [Spotifire](https://github.com/Alxandr/SpotiFire) library which is fairly essential to our project.
 
+Contributors: [@owensymes](https://twitter.com/owensymes), [@pvickers_nz](https://twitter.com/pvickers_nz)
+
 - - -
 
 ![alt tag](https://raw.github.com/trademe/playme/master/Docs/Screenshot_1.png)
