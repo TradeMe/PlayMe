@@ -1,4 +1,4 @@
-Play Me
+![alt tag](https://raw.github.com/trademe/playme/master/PlayMe.Web/Content/styles/Images/playmelogotransparent.png)
 ======
 This is a .NET based office jukebox created by Trade Me developers as part of FedEx Day 2012. 
 
