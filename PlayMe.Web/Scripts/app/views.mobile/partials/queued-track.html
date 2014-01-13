@@ -1,0 +1,31 @@
+﻿<hr style="clear:both"/>
+<li data-bind="if: $data, event: { mouseover: $root.showQueueActions, mouseleave: $root.hideQueueActions }" class="list-row align-left"> <!--Only render if it's not the playing track.-->
+    <ul class="list">
+        <li class="list-column pull-left" style="padding-right:10px;">         
+            <div data-bind="if: Track.TrackArtworkUrl">
+                <img data-bind="attr: { src: Track.TrackArtworkUrl }" class="artwork artwork-small img-queued" />
+            </div>
+            <div data-bind="ifnot: Track.TrackArtworkUrl">
+                <img data-bind="attr: { src: Track.Album.ArtworkUrlSmall }" class="artwork artwork-small img-queued" />
+            </div>
+        </li>
+        <li class="list-column" style="white-space: nowrap;font-size: 12px;">
+            <div class="truncated-label">
+                <span data-bind="text: Track.Name"></span>
+            </div>
+            <div class="truncated-label">
+                <ul class="comma-separated" data-bind="foreach: Track.Artists">
+                    <!-- ko compose: {view: 'partials/track-artist'}--><!--/ko-->
+                </ul>
+            </div> 
+            <!-- ko if: $data.Track.Album -->
+            <div>
+                <span data-bind="attr: { href: '#albums/' + Track.Album.MusicProvider.Identifier() + '/' + Track.Album.Link() }, truncated: Track.Album.Name, truncatedLength: 85"></span>
+            </div>
+            <!-- /ko -->
+            <div class="truncated-label">
+                Queued by <span data-bind="text: User"></span>
+            </div>
+        </li>
+    </ul>
+</li> 

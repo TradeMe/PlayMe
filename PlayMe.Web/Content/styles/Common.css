@@ -1,0 +1,102 @@
+﻿
+/* #region navbar */
+nav a {
+    color: #999999;
+}
+.input-append {
+    white-space: nowrap;
+}
+.navbar-form .input-append input
+{
+    -webkit-border-top-right-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+    -moz-border-radius-topright: 0px;
+    -moz-border-radius-bottomright: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    margin: 0 0 0 0px;
+}
+.dropdown-menu.providers {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    min-width: 0;
+}
+.navbar-form .input-append .btn:last-child
+{
+    -webkit-border-top-left-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+    -moz-border-radius-topleft: 0px;
+    -moz-border-radius-bottomleft: 0px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    margin: 0 0 0 -1px;
+}
+.input-append .btn-group {
+    background-color: #ffffff;
+    margin-top: 0;
+    margin-right: -2px;
+    margin-left: 1px;
+}
+.input-append .btn-group span:hover {
+    background-color: #ebebeb;
+}
+.input-append img {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+.dropdown-menu > li > a {
+    padding-left: 10px;
+}
+.navbar-loading {
+    padding: 0px
+}
+
+/* #endregion */
+
+/* #region Now Playing */
+.artwork {
+    border: 0px solid;
+    background: #BDBDBD;    
+    border-radius: 4px;
+}
+
+.artwork-small {
+    height: 60px;
+	width: 60px;
+}
+
+.artwork-small-nf
+{
+    background-image: url('Images/spotifylogo.png');
+    opacity: 0.2;
+}
+.artwork-medium {
+    height: 120px;
+	width: 120px;
+}
+
+.artwork-large {
+    height: 220px;
+	width: 220px;
+}
+
+.now-playing-text .text-small {
+    font-size: 12px;
+}
+
+ul.comma-separated { list-style: none; margin: 0; padding: 0; }
+ul.comma-separated li { display: inline; }
+ul.comma-separated li:after { content: ","; }
+ul.comma-separated li:last-child:after { content:""; }
+
+/* #endregion */
+
+.badge-veto{background-color:#b94a48 !important;}
+.badge-like{background-color:#3775AB !important;}
+
+.btn-more {
+    margin-top: 20px;
+}

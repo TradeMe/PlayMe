@@ -1,0 +1,12 @@
+﻿<div>
+    <div class="btn-group">
+        <a class="btn btn-default" data-bind="attr: { href: '#history', disabled: filter() == 'all' }">All</a>
+        <a class="btn btn-default" data-bind="attr: { href: '#history/requested', disabled: filter() == 'requested' }">Requested</a>
+        <a class="btn btn-default" data-bind="attr: { href: '#history/mine', disabled: filter() == 'mine' }">Mine</a>
+    </div>
+    <ul class="list vertical-spacing" data-bind="foreach: history">
+        <!--ko compose: {view: 'partials/queued-track', cacheViews: true}-->
+        <!--/ko-->
+    </ul>    
+    <button class="btn btn-default btn-block btn-lg btn-more" data-bind="click: getMoreHistory, visible: showMore">Load More</button>
+</div>

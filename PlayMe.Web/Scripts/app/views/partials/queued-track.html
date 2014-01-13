@@ -1,0 +1,49 @@
+﻿<li class="list-row" data-bind="if: $data, event: { mouseover: $root.showQueueActions, mouseleave: $root.hideQueueActions }"> <!--Only render if it's not the playing track.-->
+    <ul class="list">
+        <li class="list-column">         
+            <div data-bind="if: Track.TrackArtworkUrl">
+                <img data-bind="attr: { src: Track.TrackArtworkUrl }" class="artwork artwork-small img-queued" />
+            </div>
+            <div data-bind="ifnot: Track.TrackArtworkUrl">
+                <img data-bind="attr: { src: Track.Album.ArtworkUrlSmall }" class="artwork artwork-small img-queued" />
+            </div>
+        </li>
+        <li class="list-column track-info">
+            <ul class="list">
+                <li>
+                    <span data-bind="truncated: Track.Name, truncatedLength: 72"></span> <span data-bind="formattedDateTime: { source: Track.DurationMilliseconds, format: '({mm}:{ss})' }"></span>                    
+                    <!--<span class="label" data-bind="visible: $root.nowPlayingViewModel.nowPlaying() && Id() == $root.nowPlayingViewModel.nowPlaying().Id()"><a href="#now-playing" >Playing right now</a></span>                    -->
+                </li>
+                <li>
+                    <ul class="comma-separated" data-bind="foreach: Track.Artists">
+                        <!-- ko compose: {view: 'partials/track-artist'}--><!--/ko-->
+                    </ul>
+                </li>
+                <!-- ko if: $data.Track.Album -->
+                <li>
+                    <a data-bind="attr: { href: '#albums/' + Track.Album.MusicProvider.Identifier() + '/' + Track.Album.Link() }, truncated: Track.Album.Name, truncatedLength: 85"></a>
+                </li>
+                <!-- /ko -->
+                <li style="font-size:11px">                
+                    Queued by <span data-bind="text: User"></span>
+                    <span data-bind="if: $data.StartedPlayingDateTime">, played at <span data-bind="    timeAndDate: StartedPlayingDateTime"></span></span>
+                </li>
+            </ul>
+        </li>
+        <!--
+            Interesting tip - If it's possible that the property you want to bind to doesn't exist, prefix it with $data (not sure why but this works)
+            Also, need to set the data context to Track using the containerless syntax
+            -->
+            
+        <li class="pull-right">
+            <div data-bind="if: $data.StartedPlayingDateTime">
+                <!-- ko compose: {model: $data.Track, view:'views/partials/queue-button', preserveContext:true}--><!--/ko-->
+            </div>
+            
+            <div data-bind="ifnot: $data.StartedPlayingDateTime">                
+                <!-- ko compose: {view:'partials/queued-actions'}--><!--/ko-->
+            </div>
+        </li>
+    </ul>
+</li> 
+

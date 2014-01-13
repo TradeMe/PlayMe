@@ -1,0 +1,72 @@
+﻿<div style="margin: 20px 20px 10px 20px; font-size: large;">Search results for <strong data-bind="text: searchedFor"></strong></div>
+<div class="btn-group" style="width: 100%; margin-bottom: 5px">
+    <button class="btn btn-default" style="width: 33%" data-bind="click: showArtists, disable: currentTab() == tabs.artists">Artists</button>
+    <button class="btn btn-default" style="width: 33%" data-bind="click: showAlbums, disable: currentTab() == tabs.albums">Albums</button>
+    <button class="btn btn-default" style="width: 33%" data-bind="click: showTracks, disable: currentTab() == tabs.tracks">Tracks</button>
+</div>
+<div class="tab-container" data-bind="visible: currentTab() == tabs.artists, with: results().PagedArtists">
+    <ul class="list" data-bind="foreach: Artists">
+        <hr style="clear: both" />
+        <li data-bind="if: $data" class="list-row align-left">
+            <a data-bind="attr: { href: '#artists/' + MusicProvider.Identifier() + '/' + Link() }" style="color: black; cursor: pointer; text-decoration: none;">
+                <div class="pull-left" style="width:95%;">
+                    <ul class="list" style="height: 60px;">
+                        <li class="list-column pull-left" style="padding-right: 10px;">
+                            <div>
+                                <img data-bind="attr: { src: PortraitUrlSmall }" class="artwork artwork-small img-queued" />
+                            </div>
+                        </li>
+                        <li class="list-column" style="white-space: nowrap; font-size: 12px;">
+                            <div class="truncated-label">
+                                <span data-bind="text: Name"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pull-right" style="margin-top: 20px;width:5%;">
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                </div>
+            </a>
+        </li>
+    </ul>
+    <hr />
+    <div class="muted" data-bind="ifnot: Artists().length">No artists were found</div>
+</div>
+<div class="tab-container" data-bind="visible: currentTab() == tabs.albums, with: results().PagedAlbums">
+    <ul class="list" data-bind="foreach: Albums">
+        <hr style="clear: both" />
+        <li data-bind="if: $data" class="list-row align-left">
+            <a data-bind="attr: { href: '#albums/' + MusicProvider.Identifier() + '/' + Link() }" style="color: black; cursor: pointer; text-decoration: none;">
+                <div class="pull-left" style="width:95%;">
+                    <ul class="list" style="height: 60px;">
+                        <li class="list-column pull-left" style="padding-right: 10px;">
+                            <div>
+                                <img data-bind="attr: { src: ArtworkUrlSmall }" class="artwork artwork-small img-queued" />
+                            </div>
+                        </li>
+                        <li class="list-column" style="white-space: nowrap; font-size: 12px;">
+                            <div class="truncated-label">
+                                <span data-bind="text: Name"></span>&nbsp;<span data-bind="    visible: Year() != 0, text: '(' + Year() + ')'"></span>
+                            </div>
+                            <div>
+                                <span data-bind="text: Artist.Name"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pull-right" style="margin-top:20px;width:5%;">
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                </div>
+            </a>
+        </li>
+    </ul>
+    <hr />
+    <div class="muted" data-bind="ifnot: Albums().length">No albums were found</div>
+</div>
+<div class="tab-container" data-bind="visible: currentTab() == tabs.tracks, with: results().PagedTracks">
+    <ul class="list" data-bind="foreach: Tracks">
+        <!-- ko compose: 'partials/track.html'--><!--/ko-->
+    </ul>
+    <hr />
+    <div class="muted" data-bind="ifnot: Tracks().length">No tracks were found</div>
+</div>

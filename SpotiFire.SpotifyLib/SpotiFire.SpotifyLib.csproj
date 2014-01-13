@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CBF5614B-AF79-4228-8265-7DC2BAF9A626}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SpotiFire.SpotifyLib</RootNamespace>
+    <AssemblyName>SpotiFire.SpotifyLib</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EventArgs\AlbumBrowseEventArgs.cs" />
+    <Compile Include="EventArgs\ArtistBrowseEventArgs.cs" />
+    <Compile Include="Interfaces\IAlbumBrowse.cs" />
+    <Compile Include="Interfaces\IArtistBrowse.cs" />
+    <Compile Include="Interfaces\IAsyncLoaded.cs" />
+    <Compile Include="Interfaces\IContainerPlaylist.cs" />
+    <Compile Include="Interfaces\IPlaylistList.cs" />
+    <Compile Include="Interfaces\IPlaylistTrack.cs" />
+    <Compile Include="Interfaces\ILink.cs" />
+    <Compile Include="Interfaces\IPlaylistTrackList.cs" />
+    <Compile Include="LinkExtensions.cs" />
+    <Compile Include="Interfaces\ITrackAndOffset.cs" />
+    <Compile Include="PlaylistList.cs" />
+    <Compile Include="PlaylistTrackList.cs" />
+    <Compile Include="SpotifyLibExtensions.cs" />
+    <Compile Include="SpotifyTypes\AlbumBrowse.cs" />
+    <Compile Include="SpotifyTypes\ArtistBrowse.cs" />
+    <Compile Include="SpotifyTypes\Link.cs" />
+    <Compile Include="SpotifyTypes\PlaylistTrack.cs" />
+    <Compile Include="Spotify.cs" />
+    <Compile Include="SpotifyTypes\Album.cs" />
+    <Compile Include="SpotifyTypes\Artist.cs" />
+    <Compile Include="CountedDisposeableSpotifyObject.cs" />
+    <Compile Include="DelegateArray.cs" />
+    <Compile Include="DelegateList.cs" />
+    <Compile Include="EventArgs\DescriptionEventArgs.cs" />
+    <Compile Include="DisposeableSpotifyObject.cs" />
+    <Compile Include="EventWorkerItem.cs" />
+    <Compile Include="Interfaces\IAlbum.cs" />
+    <Compile Include="Interfaces\IArray.cs" />
+    <Compile Include="Interfaces\IArtist.cs" />
+    <Compile Include="Interfaces\IEditableArray.cs" />
+    <Compile Include="Interfaces\IImage.cs" />
+    <Compile Include="SpotifyTypes\ContainerPlaylist.cs" />
+    <Compile Include="SpotifyTypes\Image.cs" />
+    <Compile Include="Interfaces\IPlaylist.cs" />
+    <Compile Include="Interfaces\IPlaylistContainer.cs" />
+    <Compile Include="Interfaces\ISearch.cs" />
+    <Compile Include="Interfaces\ISpotifyObject.cs" />
+    <Compile Include="Interfaces\ITrack.cs" />
+    <Compile Include="libspotify.cs" />
+    <Compile Include="EventArgs\MusicDeliveryEventArgs.cs" />
+    <Compile Include="EventArgs\ImageEventArgs.cs" />
+    <Compile Include="Interfaces\ISession.cs" />
+    <Compile Include="SpotifyTypes\Playlist.cs" />
+    <Compile Include="SpotifyTypes\PlaylistContainer.cs" />
+    <Compile Include="EventArgs\PlaylistEventArgs.cs" />
+    <Compile Include="EventArgs\PlaylistMovedEventArgs.cs" />
+    <Compile Include="EventArgs\PlaylistUpdateEventArgs.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpotifyTypes\Search.cs" />
+    <Compile Include="EventArgs\SearchEventArgs.cs" />
+    <Compile Include="SpotifyTypes\Session.cs" />
+    <Compile Include="EventArgs\SessionEventArgs.cs" />
+    <Compile Include="SpotifyException.cs" />
+    <Compile Include="SpotifyTypes\Track.cs" />
+    <Compile Include="EventArgs\TracksEventArgs.cs" />
+    <Compile Include="EventArgs\TracksAddedEventArgs.cs" />
+    <Compile Include="EventArgs\TracksMovedEventArgs.cs" />
+    <Compile Include="EventArgs\TrackCreatedChangedEventArgs.cs" />
+    <Compile Include="EventArgs\TrackEventArgs.cs" />
+    <Compile Include="EventArgs\TrackSeenEventArgs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="libspotify.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

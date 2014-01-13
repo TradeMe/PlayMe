@@ -1,0 +1,106 @@
+﻿<div data-bind="with: nowPlaying" >
+            
+    <ul class="list " >
+        <li class="list-column">
+            <div data-bind="if: Track.TrackArtworkUrl">
+                <img data-bind="attr: { src: Track.TrackArtworkUrl }" class="artwork artwork-large"/>   
+            </div>
+            <div data-bind="ifnot: Track.TrackArtworkUrl">
+                <img data-bind="attr: { src: Track.Album.ArtworkUrlLarge }" class="artwork artwork-large"/>   
+            </div>                   
+        </li>
+        <li class="list-column now-playing-text">
+            <h3>Now playing</h3>
+            <ul class="list">                
+                <li><span data-bind="truncated: Track.Name"></span></li>
+                <li data-bind="if: Track.Artists">
+                    <ul class="comma-separated" data-bind="foreach: Track.Artists">                                                                
+                        <li><a data-bind="attr: { href: '#artists/' + MusicProvider.Identifier() + '/' + Link() }, text: Name"></a></li>                                
+                    </ul>
+                </li>
+                <li data-bind="if: Track.Album"><a data-bind="    attr: { href: '#albums/' + Track.Album.MusicProvider.Identifier() + '/' + Track.Album.Link() }, truncated: Track.Album.Name"></a></li>
+                <li class="text-small vertical-spacing">Queued by <span data-bind="text: User"></span></li>
+                <li class="text-small">
+                    <a data-bind="attr: { href: Track.ExternalLink(), target: '_Blank' }, text: 'Play in ' + Track.MusicProvider.Name()"></a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <div class="vertical-spacing">
+        <span data-bind="formattedDateTime: { source: $parent.positionAsMilliseconds, format: '{mm}:{ss}' }" style="color:#0e90d2;padding:0 5px 0 3px;"></span>
+        <span data-bind="formattedDateTime: { source: Track.DurationMilliseconds, format: '{mm}:{ss}' }" style="color:#0e90d2;padding:0 3px 0 5px;" class="pull-right"></span>
+    </div>
+    <div class="progress now-playing-progress">
+        <div class="progress-bar" data-bind="style: { width: $parent.positionAsPercent() + '%' }"></div>
+    </div> 
+
+    <ul class="list vertical-spacing">
+        <li>
+            <div class="btn-toolbar">
+                <ul class="list">
+                    <!-- ko if: $root.isAdmin -->
+                <li class="list-column">
+                    <div class="btn-group">
+                        <button class="btn btn-default" data-bind="click: $parent.pausePlayTrack"><i class="glyphicon" data-bind="css: { 'glyphicon-pause': !IsPaused(), 'glyphicon-play': IsPaused }" ></i></button>
+                        <button class="btn btn-default" data-bind="click: $parent.nextTrack"><i class="glyphicon glyphicon-step-forward"></i></button>
+                        <button class="btn btn-default" data-bind="click: $parent.forgetTrack">Forget</button>
+                    </div>
+                </li>
+                    <li class="list-column">
+                        <div class="btn-group">
+                            <button class="btn btn-default" data-bind="css: { 'disabled': $parent.currentVolume() == 0 }, click: $parent.decreaseVolume"><i class="glyphicon glyphicon-volume-down"></i></button>
+                            <button class="btn btn-default disabled"><span data-bind="text: $parent.currentVolume"></span><span>%</span></button>
+                            <button class="btn btn-default" data-bind="css: { 'disabled': $parent.currentVolume() == 100 }, click: $parent.increaseVolume"><i class="glyphicon glyphicon-volume-up"></i></button>
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                    <li class="list-column">
+                        <button class="btn btn-default" data-bind="click: $parent.likeTrack, popover: { template: 'likesPopover', visible: Likes().length, title: 'Liked by' }"><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp; Like &nbsp;<span class="badge badge-like" data-bind="text: LikeCount"></span></button>
+                    </li>
+                    <li class="list-column">
+                        <button class="btn btn-default" data-bind="click: $parent.vetoTrack, popover: { template: 'vetoesPopover', visible: Vetoes().length, title: 'Vetoed by' }"><i class="glyphicon glyphicon-thumbs-down"></i>&nbsp; Veto &nbsp;<span class="badge badge-veto" data-bind="text: VetoCount"></span></button>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div>
+<ul class="nav nav-tabs nav-tabs-dialog vertical-spacing">
+    <li data-bind="css: { 'active': currentTab() == tabs.playingSoon }">
+        <a data-bind="click: showPlayingSoon">Playing Soon</a>
+    </li>
+    <li data-bind="css: { 'active': currentTab() == tabs.recentlyPlayed }">
+        <a data-bind="click: showRecentlyPlayed">Recently Played</a>
+    </li>
+</ul>
+<div class="tab-container" data-bind="visible: currentTab() == tabs.playingSoon">
+    <div data-bind="if: playingSoon().length">
+        <ul class="list" data-bind="foreach: playingSoon">
+            <!--ko compose: 'partials/queued-track.html'--><!--/ko-->    
+        </ul>                                  
+        <div data-bind="if: playingSoon().length" style="padding-top:10px;">
+            <a href="#queue">See all queued tracks</a>
+        </div>
+    </div>
+    <div data-bind="ifnot: playingSoon().length">There are no tracks in the queue</div>
+</div>
+<div class="tab-container" data-bind="visible: currentTab() == tabs.recentlyPlayed">
+    <ul class="list" data-bind="foreach: recentlyPlayed">
+        <!--ko compose: 'partials/queued-track.html'--><!--/ko-->
+    </ul> 
+    <div style="padding-top:10px;">
+        <a href="#history">See all history</a>
+    </div>
+</div>
+
+<script type="html/text" id="likesPopover">
+  <ul class="list" data-bind="foreach: Likes">
+    <li data-bind="text: ByUser"></li>
+  </ul>
+</script>
+
+<script type="html/text" id="vetoesPopover">
+  <ul class="list" data-bind="foreach: Vetoes">
+    <li data-bind="text: ByUser"></li>
+  </ul>
+</script>

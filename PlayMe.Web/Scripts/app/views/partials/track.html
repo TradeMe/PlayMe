@@ -1,0 +1,25 @@
+﻿<li class="list-row">
+    <ul class="list">
+        <li class="list-column">
+            <img data-bind="attr: { src: TrackArtworkUrl() || Album.ArtworkUrlSmall() }" class="artwork artwork-small" />          
+        </li>
+        <li class="list-column track-info">
+            <ul class="list">
+                <li>
+                    <span data-bind="truncated: Name, truncatedLength: 70"></span>&nbsp;<span data-bind="    formattedDateTime: { source: DurationMilliseconds, format: '({mm}:{ss})' }"></span>
+                </li>
+                <li>
+                    <ul class="comma-separated" data-bind="foreach: Artists">
+                        <li><a data-bind="attr: { href: '#artists/' + MusicProvider.Identifier() + '/' + Link() }, text: Name"></a></li>          
+                    </ul>
+                </li>
+                <!-- ko if: $data.Album -->
+                <li>                            
+                    <a data-bind="attr: { href: '#albums/' + Album.MusicProvider.Identifier() + '/' + Album.Link() }, truncated: Album.Name, truncatedLength: 75"></a>
+                </li>
+                <!-- /ko -->
+            </ul>
+        </li>
+        <li class="pull-right" data-bind="compose: 'partials/queue-button.html'"></li>
+    </ul>
+</li>

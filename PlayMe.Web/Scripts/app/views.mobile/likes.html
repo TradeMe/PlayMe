@@ -1,0 +1,7 @@
+﻿<div>
+    <span data-bind="visible: likes().length==0">You haven't liked anything yet</span>
+    <ul class="list" data-bind="foreach: likes">
+        <!-- ko compose: 'partials/track.html'--><!--/ko-->
+    </ul>
+    <button class="btn btn-default btn-block btn-lg btn-more" data-bind="click: getMoreLikes">Load More</button> 
+</div>

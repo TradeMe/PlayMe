@@ -1,0 +1,3 @@
+﻿<button class="btn btn-default" data-bind="click: $root.queueTrack, css: { disabled: IsAlreadyQueued, 'btn-success': IsAlreadyQueued}">
+    <i class="glyphicon" data-bind="css: { 'glyphicon-plus': !IsAlreadyQueued(), 'glyphicon-ok': IsAlreadyQueued() }"></i>
+</button>

@@ -1,0 +1,53 @@
+﻿<div>Search results for <strong data-bind="text: searchedFor"></strong></div>
+<div data-bind="if: results">
+    <ul class="nav nav-tabs nav-tabs-dialog vertical-spacing">
+        <li data-bind="css: {'active': currentTab()==tabs.artists}">
+            <a data-bind="click: showArtists">Artists</a>
+        </li>
+        <li data-bind="css: {'active': currentTab()==tabs.albums}">
+            <a data-bind="click: showAlbums">Albums</a>
+        </li>
+        <li data-bind="css: {'active': currentTab()==tabs.tracks}">
+            <a data-bind="click: showTracks">Tracks</a>
+        </li>
+    </ul>
+    <div class="tab-container" data-bind="visible: currentTab()==tabs.artists, with: results().PagedArtists">
+        <ul class="list" data-bind="foreach: Artists">
+            <li class="list-row">
+                <ul class="list">
+                    <li class="list-column">
+                        <img data-bind="attr: {src: PortraitUrlSmall}" class="artwork artwork-small"/>
+                    </li>
+                    <li class="list-column">
+                        <a data-bind="attr: {href: '#artists/' + MusicProvider.Identifier() + '/' + Link()}, truncated: Name, truncatedLength:75"></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div data-bind="ifnot: Artists().length">No artists were found</div>
+    </div>
+    <div class="tab-container" data-bind="visible: currentTab()==tabs.albums, with: results().PagedAlbums">
+        <ul class="list" data-bind="foreach: Albums">
+            <li class="list-row">
+                <ul class="list">
+                    <li class="list-column">
+                        <img data-bind="attr: {src: ArtworkUrlSmall}" class="artwork artwork-small" />
+                    </li>
+                    <li class="list-column">
+                        <ul class="list">
+                            <li><a data-bind="attr: {href: '#albums/' + MusicProvider.Identifier() + '/' + Link()}, truncated: Name, truncatedLength: 70"></a>&nbsp;<span data-bind="visible: Year()!=0, text: '(' + Year() + ')'"></span></li>
+                            <li><a data-bind="attr: {href: '#artists/' + Artist.MusicProvider.Identifier() + '/' + Artist.Link()}, truncated: Artist.Name, truncatedLength:75"></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div data-bind="ifnot: Albums().length">No albums were found</div>
+    </div>
+    <div class="tab-container" data-bind="visible: currentTab()==tabs.tracks, with: results().PagedTracks">       
+        <ul class="list" data-bind="foreach: Tracks">
+            <!-- ko compose: 'partials/track.html'--><!--/ko-->
+        </ul>
+        <div data-bind="ifnot: Tracks().length">No tracks were found</div>
+    </div>
+</div>

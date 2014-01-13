@@ -1,0 +1,44 @@
+﻿<div data-bind="with: artist">
+    <ul class="list">
+        <li class="list-column">
+            <img data-bind="attr: { src: PortraitUrlMedium }"  class="artwork artwork-medium"/>      
+        </li>
+        <li class="list-column" data-bind="truncated: Name, truncatedLength: 80"></li>
+    </ul>        
+    <ul class="nav nav-tabs nav-tabs-dialog vertical-spacing">
+        <li data-bind="css: { 'active': $parent.currentTab() == $parent.tabs.albums }">
+            <a data-bind="click: $parent.showAlbums">Albums</a>
+        </li>
+        <li data-bind="css: { 'active': $parent.currentTab() == $parent.tabs.similarArtists }">
+            <a data-bind="click: $parent.showSimilarArtists">Related artists</a>
+        </li>
+    </ul>        
+    <div class="tab-container" data-bind="visible: $parent.currentTab() == $parent.tabs.albums">
+        <ul class="list" data-bind="foreach: Albums">
+            <li class="list-row">
+                <ul class="list">
+                    <li class="list-column">
+                        <img alt="Artist portrait" data-bind="attr: { src: ArtworkUrlSmall }" class="artwork artwork-small"/>
+                    </li>
+                    <li class="list-column">
+                        <a data-bind="attr: { href: '#albums/' + MusicProvider.Identifier() + '/' + Link() }, truncated: Name, truncatedLength: 80"></a> <span data-bind="    visible: Year() != 0, text: '(' + Year() + ')'"></span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-container" data-bind="visible: $parent.currentTab() == $parent.tabs.similarArtists">
+        <ul class="list" data-bind="foreach: Profile.SimilarArtists">
+            <li class="list-row">
+                <ul class="list">                
+                    <li class="list-column">
+                        <img alt="Artist portrait" data-bind="attr: { src: PortraitUrlSmall }" class="artwork artwork-small"/>
+                    </li>
+                    <li class="list-column">
+                        <a data-bind="attr: { href: '#artists/' + MusicProvider.Identifier() + '/' + Link() }, truncated: Name, truncatedLength: 80"></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

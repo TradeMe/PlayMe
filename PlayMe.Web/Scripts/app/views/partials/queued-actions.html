@@ -1,0 +1,31 @@
+﻿<div>
+    <div data-bind="visible: $data.queueActionsShown">
+        <div class="btn-group">
+    
+            <!-- ko if: $root.isAdmin -->
+            <button class="btn btn-default" data-bind="click: $root.nextTrack, css: { disabled: $data.IsSkipped }"><i class="glyphicon glyphicon-remove"></i></button>
+            <button class="btn btn-default" data-bind="click: $root.forgetTrack, css: { disabled: $data.IsSkipped && $data.Excluded }">Forget</button>
+            <!-- /ko -->
+        
+            <button class="btn btn-default" data-bind="visible: $data.IsSkipped()">
+                <span class="badge badge-veto"><i class="glyphicon glyphicon-thumbs-down"></i></span>
+            </button>
+
+            <button class="btn btn-default" data-bind="visible: !$data.IsSkipped(), click: $root.vetoTrack">
+                <i class="glyphicon glyphicon-thumbs-down"></i>
+                <span class="badge badge-veto" data-bind="text: VetoCount"></span>   
+            </button>
+        </div>
+    </div>
+
+    <div data-bind="visible: $data.queueActionsShown != null && !$data.queueActionsShown() && ($data.VetoCount() || $data.IsSkipped)" style="padding-right: 13px;padding-top:6px;">
+        <div data-bind="visible: $data.IsSkipped()">
+            <span class="badge badge-veto"><i class="glyphicon glyphicon-thumbs-down"></i></span>
+        </div>
+
+        <div data-bind="visible: !$data.IsSkipped()">
+            <i class="glyphicon glyphicon-thumbs-down" style="margin-top:2px;"></i>
+            <span class="badge badge-veto" data-bind="text: VetoCount" style="position:relative;top:-1px;"></span>   
+        </div>
+    </div>
+</div>

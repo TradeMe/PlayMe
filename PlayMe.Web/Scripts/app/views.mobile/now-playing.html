@@ -1,0 +1,56 @@
+﻿<div data-bind="with: nowPlaying" >
+    <ul class="list" >
+        <li class="list-column now-playing-artwork">
+            <div data-bind="if: Track.TrackArtworkUrl">
+                <img data-bind="attr: {src: Track.TrackArtworkUrl}" class="artwork artwork-large"/>   
+            </div>
+            <div data-bind="ifnot: Track.TrackArtworkUrl">
+                <img data-bind="attr: {src: Track.Album.ArtworkUrlLarge}" class="artwork artwork-large"/>   
+            </div>                   
+        </li>
+        <li class="list-column now-playing-text">
+            <div class="well">
+                <ul class="list">                
+                    <li>
+                        <div style="line-height:25px;">
+                            <span data-bind="text: Track.Name"></span>
+                            <a data-bind="attr: { href: Track.ExternalLink(), target: '_Blank' }">
+                                <!-- ko if: Track.MusicProvider.Name() == "Spotify" -->
+                                <img class="provider-icon" src="/Content/styles/Images/spotifylogo.png"/>
+                                <!-- /ko -->
+                                <!-- ko if: Track.MusicProvider.Name() == "SoundCloud" -->
+                                <img class="provider-icon" src="/Content/styles/Images/soundcloudlogo.png"/>
+                                <!-- /ko -->
+                            </a>
+                        </div>
+                        
+                    </li>
+                    <li data-bind="if:Track.Artists">
+                        <ul class="comma-separated" data-bind="foreach: Track.Artists">                                                                
+                            <li><a data-bind="attr: {href: '#artists/' + MusicProvider.Identifier() + '/' + Link()}, text: Name"></a></li>                                
+                        </ul>
+                    </li>
+                    <li data-bind="if: Track.Album"><a data-bind="attr: {href: '#albums/' + Track.Album.MusicProvider.Identifier() + '/' + Track.Album.Link()}, truncated: Track.Album.Name"></a></li>
+                    <li class="text-small" style="padding:0px; margin:0px;">Queued by <span data-bind="text: User"></span></li>
+                </ul>
+            </div>
+        </li>
+        <li style="margin:0px; padding:0px;">
+            <div class="btn-toolbar">
+                <button class="btn btn-default btn-lg btn-action" data-bind="click: $parent.likeTrack"><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp; Like &nbsp;<span class="badge badge-like" data-bind="text: LikeCount"></span></button>
+                <button class="btn btn-default btn-lg btn-action" data-bind="click: $parent.vetoTrack"><i class="glyphicon glyphicon-thumbs-down"></i>&nbsp; Veto &nbsp;<span class="badge badge-veto" data-bind="text: VetoCount"></span></button>
+            </div>
+        </li>
+    </ul>
+</div>
+<div data-bind="if: playingSoon().length">
+    <ul class="list" data-bind="foreach: playingSoon">        
+        <!--ko compose: 'partials/queued-track.html'--><!--/ko-->
+    </ul>
+    <a data-bind="attr: { href: '#queue' }">
+        <div data-bind="if: playingSoon().length" style="margin:30px;">
+            See all queued tracks
+        </div>
+    </a>
+</div>
+<div data-bind="ifnot: playingSoon().length"><hr/><span class="muted">There are no tracks in the queue</span></div>

@@ -1,0 +1,7 @@
+﻿<div>
+    <ul class="nav nav-pills" data-bind="foreach: router.navigationModel">    
+        <li data-bind="css: { active: isActive }"><a data-bind="    attr: { href: hash }, html: title"></a></li>            
+    </ul>
+    <div data-bind="router: { cacheViews: true }">
+    </div>    
+</div>

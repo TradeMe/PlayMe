@@ -1,0 +1,29 @@
+﻿<hr style="clear:both"/>
+<li class="list-row align-left">
+    <ul class="list">
+        <li class="list-column pull-left" style="padding-right:10px;">
+             <div data-bind="if: TrackArtworkUrl()">
+                <img data-bind="attr: { src: TrackArtworkUrl }" class="artwork artwork-small img-queued" />
+            </div>
+            <div data-bind="ifnot: TrackArtworkUrl()">
+                <img data-bind="attr: { src: Album.ArtworkUrlSmall }" class="artwork artwork-small img-queued" />
+            </div>      
+        </li>
+        <li class="list-column pull-left" style="white-space: nowrap;font-size: 12px;">
+             <div class="truncated-label">
+                <span data-bind="text: Name"></span>&nbsp;<span data-bind="formattedDateTime: { source: DurationMilliseconds, format: '({mm}:{ss})' }"></span>
+            </div>
+            <div class="truncated-label">
+                <ul class="comma-separated" data-bind="foreach: Artists">
+                    <!-- ko compose: 'partials/track-artist.html'--><!--/ko-->
+                </ul>
+            </div>
+            <!-- ko if: $data.Album -->
+            <div class="truncated-label">
+                <span data-bind="text: Album.Name"></span>
+            </div>
+            <!-- /ko -->
+        </li>
+        <li class="pull-right" style="margin-top:10px;" data-bind="compose: 'partials/queue-button.html'"></li>        
+    </ul>
+</li>

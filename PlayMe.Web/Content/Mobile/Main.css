@@ -1,0 +1,120 @@
+﻿body {
+    background-color: white;
+    min-width: 280px;
+}
+hr {
+    margin: 10px;
+}        
+.list {
+    list-style-type:none; 
+    overflow: hidden; 
+    zoom: 1; 
+    margin-left:0px;
+    padding: 0 10px 0 10px;
+    margin-bottom: 10px;
+}
+.inner-container {
+    text-align: center;
+}
+.inner-container ul {
+    margin: 0px;
+}
+.inner-container .comma-separated li {
+    padding-bottom: 0px;
+}
+.inner-container li {
+    list-style: none;
+}
+.align-left {
+    text-align: left;
+}
+
+.truncated-label
+{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.img-queued {
+    margin-bottom: 10px;
+    margin-right: 10px;
+    width: 60px;
+}
+
+/* #region Now Playing */
+
+.now-playing-text {
+    font-size: large;
+    text-align: left;
+    margin-bottom: 10px;
+}
+.provider-icon {
+    height: 20px;
+    padding-bottom: 5px;
+}
+
+.btn-action {
+    width: 48%;
+}
+
+.well {
+    margin-bottom: 0px;
+}
+
+.inner-container .now-playing-text li, .inner-container .now-playing-artwork {
+    list-style: none;
+    padding-bottom: 10px;
+}
+.outer-container {
+    margin-top: 66px;
+}
+/* #endregion */
+
+/* #region Artist Browse */
+
+.artist-text {
+    font-size: large;
+    margin: 10px;
+}
+.album-text {
+    font-size: large;
+    margin: 10px 10px 5px 10px;
+}
+/* #endregion */
+
+
+.btn-more {
+    margin: 20px;
+    width: 90%;
+}
+
+.input-append .btn-group {
+    margin-left: 1px;
+}
+
+.input-append  {
+    margin-bottom: 0px !important;
+    margin-left: 0px;
+}
+.navbar-form {
+    margin: 0;
+}
+.navbar-toggle {
+    margin-top: 11px;
+}
+.navbar-form input {
+    float: left;
+    width: 150px;
+}
+
+@media (min-width: 768px)
+{
+    .navbar-form
+    {
+        float: right;
+    }
+    .navbar-form input {
+        width: 250px;
+    }
+}

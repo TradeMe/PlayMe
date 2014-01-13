@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C939B763-8E9B-4489-AC75-222F90E2B695}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PlayMe.UnitTest</RootNamespace>
+    <AssemblyName>PlayMe.UnitTest</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Moq, Version=4.2.1312.1622, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Moq.4.2.1312.1622\lib\net40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture, Version=3.16.4.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoFixture.3.16.4\lib\net40\Ploeh.AutoFixture.dll</HintPath>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture.AutoMoq, Version=3.16.4.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoFixture.AutoMoq.3.16.4\lib\net40\Ploeh.AutoFixture.AutoMoq.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MockExtensions.cs" />
+    <Compile Include="PlayMe.Server\Broadcast\BroadcastMessageRuleResolver_Tests.cs" />
+    <Compile Include="PlayMe.Server\Helpers\AlreadyQueuedHelper_tests.cs" />
+    <Compile Include="PlayMe.Server\Helpers\QueueHelperRules\CannotQueueTrackAlreadyPlaying_Tests.cs" />
+    <Compile Include="PlayMe.Server\Helpers\QueueHelperRules\CannotQueueTrackDisabledProviderQueueRule_Tests.cs" />
+    <Compile Include="PlayMe.Server\Helpers\QueueHelperRules\CannotQueueTrackThatHasPlayedInTheLastXHours_Tests.cs" />
+    <Compile Include="PlayMe.Server\Helpers\QueueHelperRules\LimitNumberOfTracksQueuedByUser_Tests.cs" />
+    <Compile Include="PlayMe.Server\Helpers\QueueRuleHelper_Tests.cs" />
+    <Compile Include="PlayMe.Server\Helpers\SearchHelperRules\AlbumNameIsForbiddenSearchAlbumRule_Tests.cs" />
+    <Compile Include="PlayMe.Server\Helpers\SearchHelperRules\ArtistNameIsForbiddenSearchArtistRule_Tests.cs" />
+    <Compile Include="PlayMe.Server\Helpers\SearchHelperRules\TrackNameIsForbiddenSearchTrackRule_Tests.cs" />
+    <Compile Include="PlayMe.Server\Helpers\SearchRuleHelper_Tests.cs" />
+    <Compile Include="PlayMe.Server\Helpers\SkipHelper\Autoplay_Tests.cs" />
+    <Compile Include="PlayMe.Server\Helpers\SkipHelper\VetoedByUserWhoQueuedTrack_Tests.cs" />
+    <Compile Include="PlayMe.Server\Helpers\SkipHelper\Default_Tests.cs" />
+    <Compile Include="PlayMe.Server\Helpers\SkipHelper\OutOfHours_Tests.cs" />
+    <Compile Include="PlayMe.Server\Helpers\SkipHelper\SkipHelper_Tests.cs" />
+    <Compile Include="PlayMe.Server\Helpers\VetoHelper\AlreadyVetoedTrackVetoRule_Tests.cs" />
+    <Compile Include="PlayMe.Server\Helpers\VetoHelper\ExceededDailyLimitVetoRule_Tests.cs" />
+    <Compile Include="PlayMe.Server\MusicPlayer_Tests.cs" />
+    <Compile Include="PlayMe.Server\MusicService_Tests.cs" />
+    <Compile Include="PlayMe.Server\PathBuilder_Tests.cs" />
+    <Compile Include="PlayMe.Server\QueueManager_Tests.cs" />
+    <Compile Include="PlayMe.Server\RickRollService_Tests.cs" />
+    <Compile Include="PlayMe.Server\UserService_Tests.cs" />
+    <Compile Include="Plumbing\TestBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PlayMe.Server\SoundBoard_Tests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PlayMe.Common\PlayMe.Common.csproj">
+      <Project>{cce34a09-c7e1-4b3c-b3ae-34823d8826bf}</Project>
+      <Name>PlayMe.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlayMe.Data\PlayMe.Data.csproj">
+      <Project>{9030338D-FACF-4122-9627-31625D8C3FDC}</Project>
+      <Name>PlayMe.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlayMe.Plumbing\PlayMe.Plumbing.csproj">
+      <Project>{2A9681FF-940D-4E3D-8F2B-EB622F262465}</Project>
+      <Name>PlayMe.Plumbing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlayMe.Server\PlayMe.Server.csproj">
+      <Project>{2F1623C2-8F57-4C53-8C16-44668EA6E2CD}</Project>
+      <Name>PlayMe.Server</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

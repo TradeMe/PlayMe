@@ -1,0 +1,29 @@
+﻿<div data-bind="with: artist">
+    <ul class="list">
+        <li class="list-column">
+            <img data-bind="attr: { src: PortraitUrlMedium }" class="artwork artwork-medium" alt="artwork"/>
+        </li>
+        <li class="list-column artist-text" data-bind="text: Name"></li>
+    </ul>
+    <ul class="list" data-bind="foreach: Albums">
+        <li class="align-left">
+            <a data-bind="attr: { href: '#albums/' + MusicProvider.Identifier() + '/' + Link() }" style="color: black; cursor: pointer; text-decoration: none;">
+                <div class="pull-left" style="width: 95%;">
+                    <hr style="clear: both;" />
+                    <div class="list-row">
+                        <div class="pull-left">
+                            <img alt="Artist portrait" data-bind="attr: { src: ArtworkUrlSmall }" class="artwork artwork-small img-queued"/>
+                        </div>
+                        <div class="truncated-label">
+                            <span data-bind="text: Name"></span>
+                            <span data-bind="visible: Year() != 0, text: '(' + Year() + ')'"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pull-right" style="margin-top: 45px; width: 5%;">
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>

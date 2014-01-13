@@ -1,0 +1,14 @@
+﻿@using System.Web.Optimization
+@using PlayMe.Web.Code
+@{
+    ViewBag.Title = "Play Me";
+}
+@section JavaScript
+{    
+        
+}
+
+<div id="applicationHost"></div>
+@Scripts.Render("~/signalr/hubs")
+@Scripts.Render("~/Scripts/app-core")
+@AppScripts.Render("~/Scripts/app-main.mobile", "/Scripts/require.js", "/Scripts/app/main.mobile")

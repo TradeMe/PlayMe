@@ -1,0 +1,23 @@
+﻿<div data-bind="with: album">
+    <ul class="list">
+        <li class="list-column">
+            <img data-bind="attr: { src: ArtworkUrlMedium }" class="artwork artwork-medium" />
+        </li>
+        <li class="list-column">
+            <div class="album-text truncated-label">
+                <span data-bind="text: Name"></span>&nbsp;<span data-bind="visible: Year() != 0, text: '(' + Year() + ')'"></span>
+            </div>
+            <div class="truncated-label">
+                <span>by <span data-bind="text: Artist.Name"></span></span>
+            </div>
+        </li>
+    </ul>
+    <hr style="clear: both;" />
+    <table class="table-striped" style="width:100%;text-align:left;">
+        <tbody data-bind="foreach: Tracks">
+            <td style="padding: 10px 5px" data-bind="text: $index() + 1"></td>
+            <td data-bind="text: Name"></td>
+            <td data-bind="compose: 'partials/queue-button.html'"></td>
+        </tbody>
+    </table>
+</div>

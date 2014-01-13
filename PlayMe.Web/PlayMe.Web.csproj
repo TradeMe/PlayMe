@@ -1,0 +1,421 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DF33DADB-1C22-4FD7-90E0-582712C5BCEF}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PlayMe.Web</RootNamespace>
+    <AssemblyName>PlayMe.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.0.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.0.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=2.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.2.0.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.0.2\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.0.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.0.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.0.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.2\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="WebGrease">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Code\IdentityHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Code\IIdentityHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Code\ScriptsExtensions.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BrowseController.cs" />
+    <Compile Include="Controllers\HistoryController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LikesController.cs" />
+    <Compile Include="Controllers\QueueController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\SpotifyController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Hubs\QueueHub.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\MusicServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ISpotifyCallbackService.cs" />
+    <Compile Include="Services\SpotifyCallbackService.svc.cs">
+      <DependentUpon>SpotifyCallbackService.svc</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\styles\bootstrap-theme.css" />
+    <Content Include="Content\styles\bootstrap-theme.min.css" />
+    <Content Include="Content\styles\bootstrap.css" />
+    <Content Include="Content\styles\bootstrap.min.css" />
+    <Content Include="Content\durandal.css" />
+    <Content Include="Content\styles\Common.css" />
+    <Content Include="Content\styles\Images\glyphicons-halflings-white.png" />
+    <Content Include="Content\styles\Images\glyphicons-halflings.png" />
+    <Content Include="Content\styles\Images\loading-nav.gif" />
+    <Content Include="Content\styles\Images\playmelogotransparent.png" />
+    <Content Include="Content\styles\Images\playmetrans.gif" />
+    <Content Include="Content\styles\Images\soundcloud-icon.png" />
+    <Content Include="Content\styles\Images\soundcloudlogo.png" />
+    <Content Include="Content\styles\Images\spotifyCore.jpg" />
+    <Content Include="Content\styles\Images\spotifylogo.png" />
+    <Content Include="Content\Desktop\Main.css" />
+    <Content Include="Content\styles\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\styles\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\styles\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\styles\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\styles\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\styles\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\styles\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\styles\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\styles\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\styles\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\styles\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\styles\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\styles\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\styles\themes\base\jquery-ui.css" />
+    <Content Include="Content\styles\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\styles\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\styles\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\styles\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\styles\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\styles\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\styles\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\styles\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\styles\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\styles\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\styles\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\styles\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\styles\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\styles\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\styles\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\styles\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\styles\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\styles\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\styles\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\styles\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\styles\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\styles\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\styles\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\styles\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\styles\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\styles\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\styles\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\styles\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\styles\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\styles\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\styles\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\styles\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\styles\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\styles\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\styles\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\styles\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\styles\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\styles\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\styles\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\styles\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\Mobile\Main.css" />
+    <Content Include="mobile.weyland-config.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\almond-custom.js" />
+    <Content Include="Scripts\app\main-built.js" />
+    <Content Include="Scripts\app\main.mobile-built.js" />
+    <Content Include="Scripts\app\main.mobile.js" />
+    <Content Include="Scripts\app\main.js" />
+    <Content Include="Scripts\app\repositories\artistRepository.js" />
+    <Content Include="Scripts\app\repositories\albumRepository.js" />
+    <Content Include="Scripts\app\repositories\historyRepository.js" />
+    <Content Include="Scripts\app\repositories\likesRepository.js" />
+    <Content Include="Scripts\app\repositories\logRepository.js" />
+    <Content Include="Scripts\app\repositories\queueRepository.js" />
+    <Content Include="Scripts\app\repositories\searchRepository.js" />
+    <Content Include="Scripts\app\repositories\userRepository.js" />
+    <Content Include="Scripts\app\services\error.js" />
+    <Content Include="Scripts\app\services\messenger.js" />
+    <Content Include="Scripts\app\viewmodels\admin.js" />
+    <Content Include="Scripts\app\viewmodels\album-browse.js" />
+    <Content Include="Scripts\app\viewmodels\artist-browse.js" />
+    <Content Include="Scripts\app\viewmodels\admin-log.js" />
+    <Content Include="Scripts\app\viewmodels\admin-users.js" />
+    <Content Include="Scripts\app\viewmodels\history.js" />
+    <Content Include="Scripts\app\viewmodels\likes.js" />
+    <Content Include="Scripts\app\viewmodels\now-playing.js" />
+    <Content Include="Scripts\app\viewmodels\queue.js" />
+    <Content Include="Scripts\app\viewmodels\search-bar.js" />
+    <Content Include="Scripts\app\viewmodels\search-results.js" />
+    <Content Include="Scripts\app\viewmodels\shell.js" />
+    <Content Include="Scripts\app\views.mobile\album-browse.html" />
+    <Content Include="Scripts\app\views.mobile\artist-browse.html" />
+    <Content Include="Scripts\app\views.mobile\history.html" />
+    <Content Include="Scripts\app\views.mobile\likes.html" />
+    <Content Include="Scripts\app\views.mobile\now-playing.html" />
+    <Content Include="Scripts\app\views.mobile\partials\queue-button.html" />
+    <Content Include="Scripts\app\views.mobile\queue.html" />
+    <Content Include="Scripts\app\views.mobile\partials\queued-track.html" />
+    <Content Include="Scripts\app\views.mobile\search-bar.html" />
+    <Content Include="Scripts\app\views.mobile\search-results.html" />
+    <Content Include="Scripts\app\views.mobile\partials\track-artist.html" />
+    <Content Include="Scripts\app\views.mobile\partials\track.html" />
+    <Content Include="Scripts\app\views.mobile\shell.html" />
+    <Content Include="Scripts\app\views\admin-log.html" />
+    <Content Include="Scripts\app\views\admin-users.html" />
+    <Content Include="Scripts\app\views\admin.html" />
+    <Content Include="Scripts\app\views\album-browse.html" />
+    <Content Include="Scripts\app\views\artist-browse.html" />
+    <Content Include="Scripts\app\views\artist.html" />
+    <Content Include="Scripts\app\views\history.html" />
+    <Content Include="Scripts\app\views\likes.html" />
+    <Content Include="Scripts\app\views\now-playing.html" />
+    <Content Include="Scripts\app\views\partials\queue-button.html" />
+    <Content Include="Scripts\app\views\partials\queued-actions.html" />
+    <Content Include="Scripts\app\views\partials\queued-track.html" />
+    <Content Include="Scripts\app\views\partials\track-artist.html" />
+    <Content Include="Scripts\app\views\partials\track.html" />
+    <Content Include="Scripts\app\views\queue.html" />
+    <Content Include="Scripts\app\views\search-bar.html" />
+    <Content Include="Scripts\app\views\search-results.html" />
+    <Content Include="Scripts\app\views\shell.html" />
+    <Content Include="Scripts\BindingHandlers.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\durandal\activator.js" />
+    <Content Include="Scripts\durandal\app.js" />
+    <Content Include="Scripts\durandal\binder.js" />
+    <Content Include="Scripts\durandal\composition.js" />
+    <Content Include="Scripts\durandal\events.js" />
+    <Content Include="Scripts\durandal\plugins\dialog.js" />
+    <Content Include="Scripts\durandal\plugins\history.js" />
+    <Content Include="Scripts\durandal\plugins\http.js" />
+    <Content Include="Scripts\durandal\plugins\observable.js" />
+    <Content Include="Scripts\durandal\plugins\router.js" />
+    <Content Include="Scripts\durandal\plugins\serializer.js" />
+    <Content Include="Scripts\durandal\plugins\widget.js" />
+    <Content Include="Scripts\durandal\system.js" />
+    <Content Include="Scripts\durandal\transitions\entrance.js" />
+    <Content Include="Scripts\durandal\viewEngine.js" />
+    <Content Include="Scripts\durandal\viewLocator.js" />
+    <Content Include="build.bat" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.0.3.js" />
+    <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.0.1.js" />
+    <Content Include="Scripts\jquery.signalR-2.0.1.min.js" />
+    <Content Include="Scripts\knockout-3.0.0.debug.js" />
+    <Content Include="Scripts\knockout-3.0.0.js" />
+    <Content Include="Scripts\knockout.mapping-latest.debug.js" />
+    <Content Include="Scripts\knockout.mapping-latest.js" />
+    <Content Include="Scripts\notify.js" />
+    <Content Include="Scripts\notify.min.js" />
+    <Content Include="Scripts\sugar-es6-patch.js" />
+    <Content Include="Scripts\sugar-es6-patch.min.js" />
+    <Content Include="Scripts\sugar.js" />
+    <Content Include="Scripts\sugar.min.js" />
+    <Content Include="weyland-config.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\text.js" />
+    <Content Include="Scripts\jquery-2.0.3.min.map" />
+    <Content Include="Services\SpotifyCallbackService.svc" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Home\Index.mobile.cshtml" />
+    <Content Include="Views\Shared\_Layout.Mobile.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PlayMe.Common\PlayMe.Common.csproj">
+      <Project>{cce34a09-c7e1-4b3c-b3ae-34823d8826bf}</Project>
+      <Name>PlayMe.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\MusicServiceReference\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49384</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>http://localhost/</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if '$(Configuration)'=='Release' (
+   $(ProjectDir)build.bat $(ProjectDir)
+)</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

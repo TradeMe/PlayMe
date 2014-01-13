@@ -1,0 +1,29 @@
+﻿<div>
+    <header>
+        <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav" data-bind="foreach: authorizedRoutes">
+                    <li data-bind="css: { active: isActive }">
+                        <a data-bind="attr: { href: hash }, html: title"></a>
+                    </li>
+                </ul>    
+                <!--ko compose: {model:'viewmodels/search-bar', activate: true}--><!--/ko-->
+                <img class="navbar-loading pull-right" alt="Loading" data-bind="visible: router.isNavigating" src="/Content/styles/Images/loading-nav.gif" />
+            </div>
+        </nav>
+    </header>
+    <section>
+        <div class="outer-container">
+            <div class="inner-container" data-bind="router: { cacheViews: true }">
+            </div>
+        </div>
+    </section>
+</div>

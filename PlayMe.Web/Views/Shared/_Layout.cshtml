@@ -1,0 +1,16 @@
+@using System.Web.Optimization
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/Styles/Desktop")     
+    @Scripts.Render("~/Scripts/core")
+    @RenderSection("JavaScript")
+</head>
+<body>
+    @RenderBody()
+</body>
+</html>

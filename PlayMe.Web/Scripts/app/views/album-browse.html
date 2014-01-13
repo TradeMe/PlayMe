@@ -1,0 +1,43 @@
+﻿<div data-bind="with: album">
+    <ul class="list">
+        <li class="list-column">
+            <img data-bind="attr: {src: ArtworkUrlMedium}" class="artwork artwork-medium"/>
+        </li>
+        <li class="list-column">
+            <ul class="list">
+                <li>
+                    <span data-bind="truncated: Name, truncatedLength: 80"></span>&nbsp;<span data-bind="visible: Year()!=0, text: '(' + Year() + ')'"></span>
+                </li>
+                <li>
+                    by <a data-bind="attr: {href: '#artists/' + Artist.MusicProvider.Identifier() + '/' + Artist.Link()}, truncated: Artist.Name, truncatedLength: 80"></a>
+                </li>
+                <li>
+                    <a data-bind="attr: {href: 'http://open.spotify.com/album/' + Link(), target: '_Blank'}">Play in spotify on your PC</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <ul class="list vertical-spacing" data-bind="foreach: Tracks">
+        <li class="list-row">
+            <ul class="list">
+                <li class="list-column">
+                    <span data-bind="text: $index() +1 + ' - '"></span>
+                </li>
+                <li class="list-column">
+                    <ul class="list">
+                        <li><span data-bind="text: Name"/> <span data-bind="formattedDateTime: { source: DurationMilliseconds, format: '({mm}:{ss})'}" /></li>                        
+                        <li>
+                            <ul class="comma-separated" data-bind="foreach: Artists">
+                                <!--Only render artist if it's different to the album artist -->
+                                <!--ko if: Link() != $parents[1].Artist.Link() || $parent.Artists().length > 1-->
+                                <li><a data-bind="attr: {href: '#artists/' + MusicProvider.Identifier() + '/' + Link()}, text: Name"></a></li>  
+                                <!-- /ko -->
+                            </ul>
+                        </li>
+                    </ul>
+                </li>  
+                <li class="pull-right" data-bind="compose: { view: 'partials/queue-button' }"></li>
+            </ul>
+        </li>
+    </ul>
+</div>

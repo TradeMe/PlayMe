@@ -1,0 +1,183 @@
+﻿html {
+       overflow-y: scroll;
+}
+.playlist-container {
+   
+    padding: 5px 5px 5px 5px;
+
+}
+        
+.list {
+    list-style-type:none; 
+    overflow: hidden; 
+    zoom: 1; 
+    margin-left:0;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.vertical-spacing {
+    margin-top: 20px;
+}
+
+.img-queued {
+    margin-top: 2px;
+}
+
+li.list-row {
+    margin-top: 20px;
+    padding: 2px;
+}
+
+li:first-child.list-row {
+    margin-top: 0px; /*No margin on first column*/
+}
+
+li.list-row:hover {
+    background-color: whitesmoke;
+}
+
+li.list-column { 
+    float: left;
+    margin-right: 10px;
+}
+
+li:first-child.list-column {
+    margin-left: 0px; /*No margin on first column*/
+}
+.nav.nav-tabs.nav-tabs-dialog{
+    margin-bottom: 0px;
+}
+.tab-container {
+    border-right:  solid 1px #DDD;
+    border-left:  solid 1px #DDD;
+    border-bottom:  solid 1px #DDD;
+    padding:20px 20px 20px 20px;    
+    background-color: white; 
+}
+
+.outer-container {
+    margin-top: 75px;
+    width: 800px; 
+    margin-left: auto ; 
+    margin-right: auto ;
+    margin-bottom: 10px;
+    border:  solid 1px #DDD;
+    background-color: white;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+}
+.track-info {
+    line-height:18px;
+    font-size: 12px;
+}
+.inner-container {
+    margin: 20px;
+}
+
+.album-art {
+    margin:10px 10px 0 10px;
+}
+
+.now-playing-text {
+    font-size: 16px;
+}
+
+.now-playing-queue-text {
+    font-size: 11px;
+    line-height: 50px;
+}
+
+.navbar-centered {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.navbar-search.pull-right {
+    margin-left: 8px;
+}
+
+.navbar-loading {
+    margin-top: 12px;
+}
+
+.now-playing-progress {
+    margin-bottom: 20px;
+}
+.now-playing-progress .pull-left {
+    margin-left: 4px;
+}
+
+.now-playing-progress .pull-right {
+    margin-right: 4px;
+}
+
+.queued {
+    display: none;
+}
+
+.now-playing-text h3 {
+    margin: 10px 0;
+}
+
+.admin-button {
+    width: 100px;
+}
+
+.label a {
+    color: white;
+}
+
+.label a:hover {
+    color: white;
+    text-decoration: none;
+}
+th span {
+    color: #0044cc;
+    text-decoration: none;
+    cursor: pointer;
+}
+body{
+    background-color: whitesmoke;
+}
+
+.typeahead.dropdown-menu {
+    z-index:1100;
+    margin-left: 10px;
+    min-width: 270px;
+}
+
+.typeahead.dropdown-menu li a {    
+    padding-left: 10px;
+}
+
+.btn-toolbar .popover {
+    font-size: 14px;
+}
+
+.inverse .input-append input{
+    margin-top: 0px;
+    padding-bottom: 7px;
+}
+.table-condensed th {
+    text-align: left;
+}
+.table-condensed td span {
+    margin-left: 0px;
+}
+.navbar-form input {
+    float: left;
+    width: 150px;
+}
+@media (min-width: 768px)
+{
+    .navbar-form
+    {
+        float: right;
+    }
+    .navbar-form input {
+        width: 250px;
+    }
+}

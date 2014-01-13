@@ -1,0 +1,6 @@
+﻿<div>
+    <span data-bind="if: queue().length == 0">There are no tracks in the queue</span>
+    <ul class="list vertical-spacing" data-bind="foreach: queue">
+        <!--ko compose: 'partials/queued-track.html'--><!--/ko-->
+    </ul>
+</div>

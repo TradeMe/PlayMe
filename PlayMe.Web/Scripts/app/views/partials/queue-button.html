@@ -1,0 +1,1 @@
+﻿<button style="width:80px" class="btn" data-bind="click: $root.queueTrack, css: { disabled: IsAlreadyQueued, 'btn-success': IsAlreadyQueued, 'btn-default': !IsAlreadyQueued() }, text: IsAlreadyQueued()==true ? 'Queued' : 'Queue'">Queue</button>
