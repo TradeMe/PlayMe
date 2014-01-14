@@ -16,6 +16,11 @@ Contributors: [@pvickers_nz](https://twitter.com/pvickers_nz), [@owensymes](http
 
 ### [Download](https://raw.github.com/trademe/playme/master/ReadyToRun.zip)
 
+<br/>
+
+This product uses a SPOTIFY API but is not endorsed, certified or otherwise approved in any way by Spotify. Spotify is the registered trade mark of the Spotify Group.
+
 - - -
 
 ![alt tag](https://raw.github.com/trademe/playme/master/Docs/Screenshot_1.png)
+
