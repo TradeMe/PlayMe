@@ -82,6 +82,7 @@ li:first-child.list-column {
 
 .now-playing-text {
     font-size: 16px;
+    width: 510px;
 }
 
 .now-playing-queue-text {
@@ -181,3 +182,57 @@ body{
         width: 250px;
     }
 }
+
+.input-group-button button {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.reason-icon {
+    background-image: url('../styles/Images/reason-icon.png');
+    background-size:100%;
+    height: 16px;
+    width: 14px;
+    display: block;
+}
+/* compact state */
+.btn-queue-input {
+    transition: all 1s ease;
+    position: absolute;
+    right: 78px;
+    width: 28px;
+}
+
+.btn-queue-input .bullhorn {
+    padding: 6px;
+    border: 1px solid lightgray;
+    background-color: white;
+    margin-right: -1px;
+    height: 34px;
+    width: 27px;
+    float: left;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.btn-queue-input input {
+    transition: all 1s ease;
+    width: 0 !important;
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 0;
+}
+/******************/
+
+/* expanded state */
+.btn-queue-input.clicked input
+{
+    padding-left: 5px;
+    width: 228px !important;
+}
+
+.btn-queue-input.clicked
+{
+    width: 254px !important;
+}
+/*****************/

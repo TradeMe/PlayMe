@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using Newtonsoft.Json.Linq;
 using PlayMe.Common.Model;
 using PlayMe.Web.Code;
 using PlayMe.Web.MusicServiceReference;
@@ -10,8 +11,12 @@ namespace PlayMe.Web.Controllers
     public class QueueController : ApiController
     {
         [HttpPost]
-        public string Enqueue(string id, string provider)
+        public string Enqueue(JObject json)
         {
+            dynamic trackToQueue = json;
+            string id = trackToQueue.id;
+            string provider = trackToQueue.provider;
+            string reason = trackToQueue.reason;
             var user = User.Identity.Name;
             using (var client = new MusicServiceClient())
             {
@@ -19,7 +24,8 @@ namespace PlayMe.Web.Controllers
                 var queuedTrack = new QueuedTrack
                 {
                     Track = track,
-                    User = user
+                    User = user,
+                    Reason = reason
                 };
 
                 var errors = client.QueueTrack(queuedTrack);

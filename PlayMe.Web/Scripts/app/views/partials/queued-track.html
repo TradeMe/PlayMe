@@ -25,8 +25,8 @@
                 </li>
                 <!-- /ko -->
                 <li style="font-size:11px">                
-                    Queued by <span data-bind="text: User"></span>
-                    <span data-bind="if: $data.StartedPlayingDateTime">, played at <span data-bind="    timeAndDate: StartedPlayingDateTime"></span></span>
+                    Queued by <span data-bind="text: User"></span><span style="font-style:italic" data-bind="text: " " + Reason"></span>,
+                    <span data-bind="if: $data.StartedPlayingDateTime"> played at <span data-bind="timeAndDate: StartedPlayingDateTime"></span></span>
                 </li>
             </ul>
         </li>

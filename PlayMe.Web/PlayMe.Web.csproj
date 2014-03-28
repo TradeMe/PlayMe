@@ -170,6 +170,7 @@
     <Content Include="Content\styles\Images\loading-nav.gif" />
     <Content Include="Content\styles\Images\playmelogotransparent.png" />
     <Content Include="Content\styles\Images\playmetrans.gif" />
+    <Content Include="Content\styles\Images\reason-icon.png" />
     <Content Include="Content\styles\Images\soundcloud-icon.png" />
     <Content Include="Content\styles\Images\soundcloudlogo.png" />
     <Content Include="Content\styles\Images\spotifyCore.jpg" />

@@ -220,13 +220,19 @@ namespace PlayMe.Server
             var foundTrack = musicPlayer.CurrentlyPlayingTrack;
 	        if (foundTrack == null || foundTrack.Id != queuedTrackId) return;
 
-	        if (vetoHelper.CantVetoTrack(user,foundTrack)) return;
+	        if (vetoHelper.CantVetoTrack(user, foundTrack)) return;
+
             foundTrack.Vetoes = foundTrack.Vetoes.ToList();
 	        foundTrack.Vetoes.Add(new Veto {ByUser = user});
 	        queuedTrackDataService.Update(foundTrack);
 	        logger.Info("Track {0} vetoed by {1}", foundTrack.ToLoggerFriendlyTrackName(), user);
+
+            if (foundTrack.Likes.Count > 3 && foundTrack.Vetoes.Count == skipHelper.RequiredVetoCount(foundTrack) - 1)
+            {
+                soundBoardService.PlayFinishHim(); //plays once per track
+            }
 	        
-	        if (foundTrack.Vetoes.Count >= skipHelper.RequiredVetoCount(foundTrack))
+            if (foundTrack.Vetoes.Count >= skipHelper.RequiredVetoCount(foundTrack))
 	        {
 	            logger.Info("Maximum vetoes reached on track {0}. Skipping", foundTrack.ToLoggerFriendlyTrackName());
 	            foundTrack.IsSkipped = true;
@@ -284,6 +290,7 @@ namespace PlayMe.Server
             if (!IsUserAdmin(user)) return;
 
             if (queuedTrackId != musicPlayer.CurrentlyPlayingTrack.Id) return;
+            
             logger.Info("{0} skipped the current track {1}", user, musicPlayer.CurrentlyPlayingTrack.ToLoggerFriendlyTrackName());
             SkipToNextTrack();
 		}

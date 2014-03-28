@@ -30,6 +30,7 @@ namespace PlayMe.Server.SoundBoard
                                          };
 
        private readonly INowHelper nowHelper;
+       private bool hasPlayedFinishHimForThisTrack = false;
 
        public SoundBoardService(IDataService<SoundBoardInfo> soundBoardDataService, ISoundBoardSettings soundBoardSettings, IStreamedPlayer player, IPathBuilder pathBuilder, INowHelper nowHelper)
        {
@@ -40,9 +41,18 @@ namespace PlayMe.Server.SoundBoard
            this.soundBoardDataService = soundBoardDataService;
        }
 
-       public void PlayVetoSound()
-        {
+       public void PlayFinishHim()
+       {
+           if (soundBoardSettings.IsEnabled && !hasPlayedFinishHimForThisTrack)
+           {
+               player.PlayFromFile(pathBuilder.BuildFilePath("finishhim.wav"));
+               hasPlayedFinishHimForThisTrack = true;
+           }
+       }
 
+       public void PlayVetoSound()
+       {
+           hasPlayedFinishHimForThisTrack = false;
             if (soundBoardSettings.IsEnabled)
             {
                 bool firstblood = false;
@@ -59,14 +69,15 @@ namespace PlayMe.Server.SoundBoard
                 {
                     latestVetoInfo = new SoundBoardInfo();
                 }
-                var n = nowHelper.Now.ToUniversalTime();
-                var latestTime = lastVetoDateTime.AddSeconds(soundBoardSettings.SecondsBetweenSkipThreshold);
+
                 //first veto of the day!
-                if(!lastVetoDateTime.Date.Equals(n.Date))
+                if (!lastVetoDateTime.ToLocalTime().Date.Equals(nowHelper.Now.Date))
                 {
                     firstblood = true;                        
                 }
 
+                var n = nowHelper.Now.ToUniversalTime();
+                var latestTime = lastVetoDateTime.AddSeconds(soundBoardSettings.SecondsBetweenSkipThreshold);
                 if (DateTime.Compare(latestTime, n) > 0)
                 {
                     skipCount++;

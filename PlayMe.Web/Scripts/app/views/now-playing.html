@@ -19,7 +19,7 @@
                     </ul>
                 </li>
                 <li data-bind="if: Track.Album"><a data-bind="    attr: { href: '#albums/' + Track.Album.MusicProvider.Identifier() + '/' + Track.Album.Link() }, truncated: Track.Album.Name"></a></li>
-                <li class="text-small vertical-spacing">Queued by <span data-bind="text: User"></span></li>
+                <li class="text-small vertical-spacing">Queued by <span data-bind="text: User"></span>&nbsp<marquee style="font-style:italic" data-bind="text: Reason"></marquee></li>
                 <li class="text-small">
                     <a data-bind="attr: { href: Track.ExternalLink(), target: '_Blank' }, text: 'Play in ' + Track.MusicProvider.Name()"></a>
                 </li>
@@ -39,13 +39,13 @@
             <div class="btn-toolbar">
                 <ul class="list">
                     <!-- ko if: $root.isAdmin -->
-                <li class="list-column">
-                    <div class="btn-group">
-                        <button class="btn btn-default" data-bind="click: $parent.pausePlayTrack"><i class="glyphicon" data-bind="css: { 'glyphicon-pause': !IsPaused(), 'glyphicon-play': IsPaused }" ></i></button>
-                        <button class="btn btn-default" data-bind="click: $parent.nextTrack"><i class="glyphicon glyphicon-step-forward"></i></button>
-                        <button class="btn btn-default" data-bind="click: $parent.forgetTrack">Forget</button>
-                    </div>
-                </li>
+                    <li class="list-column">
+                        <div class="btn-group">
+                            <button class="btn btn-default" data-bind="click: $parent.pausePlayTrack"><i class="glyphicon" data-bind="css: { 'glyphicon-pause': !IsPaused(), 'glyphicon-play': IsPaused }" ></i></button>
+                            <button class="btn btn-default" data-bind="click: $parent.nextTrack"><i class="glyphicon glyphicon-step-forward"></i></button>
+                            <button class="btn btn-default" data-bind="click: $parent.forgetTrack">Forget</button>
+                        </div>
+                    </li>
                     <li class="list-column">
                         <div class="btn-group">
                             <button class="btn btn-default" data-bind="css: { 'disabled': $parent.currentVolume() == 0 }, click: $parent.decreaseVolume"><i class="glyphicon glyphicon-volume-down"></i></button>
