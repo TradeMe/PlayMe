@@ -33,10 +33,16 @@
         showAlbums: showAlbums,
         showTracks: showTracks,
         
-        queueTrack: function(track) {
+        queueTrack: function (track) {
+            $(".clicked").toggleClass("clicked");
             queueRepository.queueTrack(track);
         },
-
+        reasonClick : function(track, event) {
+            if (!track.IsAlreadyQueued()) {
+                var $this = $(event.target);
+                $this.closest(".btn-queue-input").toggleClass('clicked');
+            }
+        },
         activate: function (context) {
             searchedFor(context.searchTerm);
             

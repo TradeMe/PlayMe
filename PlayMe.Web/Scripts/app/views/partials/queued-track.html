@@ -11,7 +11,7 @@
         <li class="list-column track-info">
             <ul class="list">
                 <li>
-                    <span data-bind="truncated: Track.Name, truncatedLength: 72"></span> <span data-bind="formattedDateTime: { source: Track.DurationMilliseconds, format: '({mm}:{ss})' }"></span>                    
+                    <span data-bind="truncated: Track.Name, truncatedLength: 60"></span> <span data-bind="formattedDateTime: { source: Track.DurationMilliseconds, format: '({mm}:{ss})' }"></span>                    
                     <!--<span class="label" data-bind="visible: $root.nowPlayingViewModel.nowPlaying() && Id() == $root.nowPlayingViewModel.nowPlaying().Id()"><a href="#now-playing" >Playing right now</a></span>                    -->
                 </li>
                 <li>
@@ -25,7 +25,7 @@
                 </li>
                 <!-- /ko -->
                 <li style="font-size:11px">                
-                    Queued by <span data-bind="text: User"></span><span style="font-style:italic" data-bind="text: " " + Reason"></span>,
+                    Queued by <span data-bind="text: User"></span><span style="font-style:italic" data-bind="visible: Reason(), text: ' ' + Reason()"></span><span data-bind="visible: $data.StartedPlayingDateTime">, </span>
                     <span data-bind="if: $data.StartedPlayingDateTime"> played at <span data-bind="timeAndDate: StartedPlayingDateTime"></span></span>
                 </li>
             </ul>
