@@ -136,7 +136,9 @@ namespace PlayMe.Server
 		#region Browse and Search
 
 		public SearchResults SearchAll(string searchTerm, string provider, string user)
-		{
+        {
+            logger.Debug("User {0} searched for '{1}'", user, searchTerm);
+
 			// currently only searching spotify
 			var musicProvider = musicProviderFactory.GetMusicProviderByIdentifier(provider);
 
@@ -188,7 +190,7 @@ namespace PlayMe.Server
 
         public string QueueTrack(QueuedTrack trackToQueue)
         {
-            if (trackToQueue == null) return "Track is not found.";
+            if (trackToQueue == null) return "Track could not be found.";
 
             var errors = queueRuleHelper.CannotQueueTrack(trackToQueue.Track, trackToQueue.User);
             if (errors != null && errors.Any(e => e != string.Empty)) return errors.FirstOrDefault(e => e != string.Empty);
@@ -227,11 +229,6 @@ namespace PlayMe.Server
 	        queuedTrackDataService.Update(foundTrack);
 	        logger.Info("Track {0} vetoed by {1}", foundTrack.ToLoggerFriendlyTrackName(), user);
 
-            if (foundTrack.Likes.Count > 3 && foundTrack.Vetoes.Count == skipHelper.RequiredVetoCount(foundTrack) - 1)
-            {
-                soundBoardService.PlayFinishHim(); //plays once per track
-            }
-	        
             if (foundTrack.Vetoes.Count >= skipHelper.RequiredVetoCount(foundTrack))
 	        {
 	            logger.Info("Maximum vetoes reached on track {0}. Skipping", foundTrack.ToLoggerFriendlyTrackName());
@@ -440,7 +437,7 @@ namespace PlayMe.Server
             int total = results.Count();
             return new PagedResultHelper().GetPagedResult(start, total, results.Skip(start).Take(take));
         }
-
+        
 		#endregion
 
 		#region History
@@ -461,29 +458,45 @@ namespace PlayMe.Server
 
 		#region Likes
 
-		public void LikeTrack(Guid queuedTrackId, string user)
-		{
-			var foundTrack = queuedTrackDataService.Get(queuedTrackId);
-		    if (foundTrack == null) return;
+        public void LikeTrack(Guid queuedTrackId, string user)
+        {
+            if (queueManager.Contains(queuedTrackId))
+            {
+                LikeUpcomingTrack(queuedTrackId, user);
+            }
+            else
+            {
+                LikeCurrentTrack(queuedTrackId, user);
+            }
+        }
+
+        private void LikeUpcomingTrack(Guid queuedTrackId, string user)
+        {
+            var foundTrack = queueManager.Get(queuedTrackId);
+            if (foundTrack.Likes.Any(v => v.ByUser == user)) return;
+            foundTrack.Likes = foundTrack.Likes.ToList();
+            foundTrack.Likes.Add(new Like { ByUser = user });
+
+            logger.Debug("Upcoming track {0} liked by {1}", foundTrack.ToLoggerFriendlyTrackName(), user);
+            
+            callbackClient.QueueChanged(queueManager.GetAll());
+        }
+
+		private void LikeCurrentTrack(Guid queuedTrackId, string user)
+        {
+            var foundTrack = musicPlayer.CurrentlyPlayingTrack;
+            if (foundTrack == null || foundTrack.Id != queuedTrackId) return;
 
 		    if (foundTrack.Likes.Any(v => v.ByUser == user)) return;
 
             foundTrack.Likes = foundTrack.Likes.ToList();
-		    var newLike = new Like {ByUser = user};
-		    foundTrack.Likes.Add(newLike);
+		    foundTrack.Likes.Add(new Like {ByUser = user});
 		    queuedTrackDataService.Update(foundTrack);
-
-		    if (foundTrack.Id == musicPlayer.CurrentlyPlayingTrack.Id)
-		    {
-                musicPlayer.CurrentlyPlayingTrack.Likes = musicPlayer.CurrentlyPlayingTrack.Likes.ToList();
-		        musicPlayer.CurrentlyPlayingTrack.Likes.Add(newLike);
-		        callbackClient.PlayingTrackChanged(foundTrack);
-		    }
-
-		    logger.Debug("{0} liked track {1}", user, foundTrack.ToLoggerFriendlyTrackName());
+            logger.Debug("{0} liked track {1}", user, foundTrack.ToLoggerFriendlyTrackName());
             
             broadcastService.Broadcast(foundTrack);
-		    
+            
+            callbackClient.PlayingTrackChanged(foundTrack);
 		}
 	   
 		public PagedResult<Track> GetLikes(int start, int limit, string user)
