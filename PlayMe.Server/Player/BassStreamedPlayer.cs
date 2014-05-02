@@ -39,7 +39,7 @@ namespace PlayMe.Server.Player
 
         public void Reset()
         {
-            if (handle > 0)
+            if (handle != 0)
             {
                 Bass.BASS_ChannelStop(handle);
             }
@@ -60,7 +60,7 @@ namespace PlayMe.Server.Player
 
         protected void PlayStream()
         {
-            if (handle > 0)
+            if (handle != 0)
             {
                 Bass.BASS_Init(-1, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
                 sync = BASS_PlaybackEnded;
