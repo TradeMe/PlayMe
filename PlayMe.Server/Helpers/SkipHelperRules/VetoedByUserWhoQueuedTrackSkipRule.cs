@@ -8,8 +8,7 @@ namespace PlayMe.Server.Helpers.SkipHelperRules
     {
         public int GetRequiredVetoCount(QueuedTrack track)
         {
-            //return (track.Vetoes.Any(v => v.ByUser == track.User)) ? 1 : int.MaxValue;
-            return int.MaxValue;
+            return (track.Vetoes.Any(v => v.ByUser == track.User)) ? 1 : int.MaxValue;
         }
     }
 }
