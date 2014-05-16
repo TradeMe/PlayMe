@@ -20,7 +20,6 @@ namespace PlayMe.Server.Helpers.QueueHelperRules
                    musicPlayer.CurrentlyPlayingTrack.Track.Name == track.Name
                        ? "Cannot queue this track as it is already playing."
                        : string.Empty;
-            //musicPlayer.CurrentlyPlayingTrack.Track.Album.Name == track.Album.Name; //I have found that the mappers are allowing null albums
         }
     }
 }
