@@ -68,7 +68,9 @@ namespace PlayMe.Server.AutoPlay
                 var queuedTrack = new QueuedTrack();
                 var tracksMusicProvider = musicProviderFactory.GetMusicProviderByIdentifier(qt.value.Track.MusicProvider.Identifier);
                 if (!tracksMusicProvider.IsEnabled) continue;
-                queuedTrack.Track = tracksMusicProvider.GetTrack(qt._id, Constants.AutoplayUserName);
+                var t = tracksMusicProvider.GetTrack(qt._id, Constants.AutoplayUserName);
+                if (t == null) continue;
+                queuedTrack.Track = t;
                 queuedTrack.User = Constants.AutoplayUserName;
 
                 _tracksForAutoplaying.Push(queuedTrack);

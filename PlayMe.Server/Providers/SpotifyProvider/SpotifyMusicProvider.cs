@@ -95,7 +95,6 @@ namespace PlayMe.Server.Providers.SpotifyProvider
         public SearchResults SearchAll(string searchTerm, string user)
         {
             Login();
-            logger.Trace("Search started for term {0}",searchTerm);
             using (var search = session.Search(searchTerm, 0, 30, 0, 15, 0, 15, 0, 0, sp_search_type.STANDARD))
             {
                 search.WaitForCompletion();
@@ -136,7 +135,6 @@ namespace PlayMe.Server.Providers.SpotifyProvider
                 results.PagedAlbums = pagedAlbums;
                 results.PagedTracks = pagedTracks;
 
-                logger.Debug("Search completed for term {0}", searchTerm);
                 return results;
             }
         }
@@ -222,8 +220,8 @@ namespace PlayMe.Server.Providers.SpotifyProvider
             player.Reset();
             session.PlayerUnload();
         }
-        
-        public bool IsEnabled { get { return true; } }
+
+        public bool IsEnabled { get { return spotifySettings.IsEnabled; } }
         
         public IPlayer Player
         {

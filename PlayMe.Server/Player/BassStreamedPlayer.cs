@@ -39,7 +39,10 @@ namespace PlayMe.Server.Player
 
         public void Reset()
         {
-            Bass.BASS_ChannelStop(handle);
+            if (handle != 0)
+            {
+                Bass.BASS_ChannelStop(handle);
+            }
         }
 
         public void PlayFromUrl(Uri url)
@@ -57,10 +60,13 @@ namespace PlayMe.Server.Player
 
         protected void PlayStream()
         {
-            Bass.BASS_Init(-1, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
-            sync = BASS_PlaybackEnded;
-            Bass.BASS_ChannelSetSync(handle, BASSSync.BASS_SYNC_END, 0, sync, IntPtr.Zero);
-            Bass.BASS_ChannelPlay(handle, false);
+            if (handle != 0)
+            {
+                Bass.BASS_Init(-1, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
+                sync = BASS_PlaybackEnded;
+                Bass.BASS_ChannelSetSync(handle, BASSSync.BASS_SYNC_END, 0, sync, IntPtr.Zero);
+                Bass.BASS_ChannelPlay(handle, false);
+            }
         }
         
         private void BASS_PlaybackEnded(int hnd, int channel, int data, IntPtr user)
