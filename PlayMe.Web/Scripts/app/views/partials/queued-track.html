@@ -24,9 +24,10 @@
                     <a data-bind="attr: { href: '#albums/' + Track.Album.MusicProvider.Identifier() + '/' + Track.Album.Link() }, truncated: Track.Album.Name, truncatedLength: 85"></a>
                 </li>
                 <!-- /ko -->
-                <li style="font-size:11px">                
+                <li class="small-text">                
                     Queued by <span data-bind="text: User"></span><span style="font-style:italic" data-bind="visible: Reason(), text: ' ' + Reason()"></span><span data-bind="visible: $data.StartedPlayingDateTime">, </span>
-                    <span data-bind="if: $data.StartedPlayingDateTime"> played at <span data-bind="timeAndDate: StartedPlayingDateTime"></span></span>
+                    <span data-bind="if: $data.StartedPlayingDateTime"> played at <span data-bind="    timeAndDate: StartedPlayingDateTime"></span></span>
+                </li>
                 </li>
             </ul>
         </li>

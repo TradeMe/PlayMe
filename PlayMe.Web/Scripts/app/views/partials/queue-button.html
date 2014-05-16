@@ -1,9 +1,9 @@
 ﻿<div class="input-group btn-queue" style="width:200px;">
-    <div class="btn-queue-input">
-        <div class="reason" data-bind="click: $root.reasonClick">
+    <div class="btn-queue-input" data-bind="css: { reasonExpanded: ReasonExpanded, disabled: IsAlreadyQueued }">
+        <div class="reason" data-bind="click: $root.expandReason">
             <i class="reason-icon" style="margin-top: 3px;"/>
         </div>
-        <input type="text" class="dropleft-toggle form-control" placeholder="Why are you queueing this?" data-bind="value: Reason, valueUpdate: 'keyup', enterkey: $root.queueTrack">
+        <input type="text" class="dropleft-toggle form-control" placeholder="Why are you queuing this?" data-bind="value: Reason, valueUpdate: 'keyup', enterkey: $root.queueTrack">
     </div>
     <div class="input-group-btn">
         <button style="width:80px" class="btn btn-default" data-bind="click: $root.queueTrack, css: { disabled: IsAlreadyQueued, 'btn-success': IsAlreadyQueued, 'btn-default': !IsAlreadyQueued() }, text: IsAlreadyQueued() == true ? 'Queued' : 'Queue'">Queue</button>

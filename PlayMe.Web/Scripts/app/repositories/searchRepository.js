@@ -7,8 +7,13 @@
         return $.getJSON(
             'api/search',
             params,
-            function(data) {
-                resultsObservable(ko.mapping.fromJS(data));
+            function (data) {
+                var results = ko.mapping.fromJS(data);
+                ko.utils.arrayForEach(results.PagedTracks.Tracks(), function (item) {
+                    var otherStuff = { ReasonExpanded: ko.observable(false) };
+                    $.extend(item, otherStuff);
+                });
+                resultsObservable(results);
             }
         ).error(function () { error.show(error.errors.read); });
     };

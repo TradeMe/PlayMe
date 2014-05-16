@@ -8,7 +8,13 @@
             },
             function (data) {
                 hasMoreObservable(data.HasMorePages);
-                ko.utils.arrayPushAll(historyObservable, ko.mapping.fromJS(data).PageData());                
+
+                var results = ko.mapping.fromJS(data).PageData();
+                ko.utils.arrayForEach(results, function (item) {
+                    var otherStuff = { ReasonExpanded: ko.observable(false) };
+                    $.extend(item.Track, otherStuff);
+                });
+                ko.utils.arrayPushAll(historyObservable, results);
             }
         ).error(function () { error.show(error.errors.read); });
     };

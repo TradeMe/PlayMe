@@ -34,13 +34,16 @@
         showTracks: showTracks,
         
         queueTrack: function (track) {
-            $(".clicked").toggleClass("clicked");
+            track.ReasonExpanded(false);
             queueRepository.queueTrack(track);
         },
-        reasonClick : function(track, event) {
+        expandReason : function(track) {
             if (!track.IsAlreadyQueued()) {
-                var $this = $(event.target);
-                $this.closest(".btn-queue-input").toggleClass('clicked');
+                if (track.ReasonExpanded()) {
+                    track.ReasonExpanded(false);
+                } else {
+                    track.ReasonExpanded(true);
+                }
             }
         },
         activate: function (context) {

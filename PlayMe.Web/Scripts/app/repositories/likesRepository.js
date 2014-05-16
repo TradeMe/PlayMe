@@ -7,7 +7,13 @@
             },
             function (data) {
                 hasMoreObservable(data.HasMorePages);
-                ko.utils.arrayPushAll(likesObservable, ko.mapping.fromJS(data).PageData());
+
+                var results = ko.mapping.fromJS(data).PageData();
+                ko.utils.arrayForEach(results, function (item) {
+                    var otherStuff = { ReasonExpanded: ko.observable(false) };
+                    $.extend(item, otherStuff);
+                });
+                ko.utils.arrayPushAll(likesObservable, results);
             }
         ).error(function () { error.show(error.errors.read); });
     };
