@@ -42,8 +42,10 @@
                     <li class="list-column">
                         <div class="btn-group">
                             <button class="btn btn-default" data-bind="click: $parent.pausePlayTrack"><i class="glyphicon" data-bind="css: { 'glyphicon-pause': !IsPaused(), 'glyphicon-play': IsPaused }" ></i></button>
+                            <!-- ko if: $root.isSuperAdmin -->
                             <button class="btn btn-default" data-bind="click: $parent.nextTrack"><i class="glyphicon glyphicon-step-forward"></i></button>
                             <button class="btn btn-default" data-bind="click: $parent.forgetTrack">Forget</button>
+                            <!--/ko -->
                         </div>
                     </li>
                     <li class="list-column">

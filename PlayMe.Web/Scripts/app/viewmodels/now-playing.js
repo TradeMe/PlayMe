@@ -72,6 +72,7 @@
     return {
         tabs: tabs,
         isAdmin: app.isAdmin,
+        isSuperAdmin: app.isSuperAdmin,
         nowPlaying: nowPlaying,
         playingSoon: playingSoon,
         recentlyPlayed: recentlyPlayed,

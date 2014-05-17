@@ -2,7 +2,7 @@
     <div data-bind="visible: $data.queueActionsShown">
         <div class="btn-group">
     
-            <!-- ko if: $root.isAdmin -->
+            <!-- ko if: $root.isSuperAdmin -->
             <button class="btn btn-default" data-bind="click: $root.nextTrack, css: { disabled: $data.IsSkipped }"><i class="glyphicon glyphicon-remove"></i></button>
             <button class="btn btn-default" data-bind="click: $root.forgetTrack, css: { disabled: $data.IsSkipped && $data.Excluded }">Forget</button>
             <!-- /ko -->

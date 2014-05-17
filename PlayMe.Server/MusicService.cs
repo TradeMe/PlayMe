@@ -228,8 +228,9 @@ namespace PlayMe.Server
 	        foundTrack.Vetoes.Add(new Veto {ByUser = user});
 	        queuedTrackDataService.Update(foundTrack);
 	        logger.Info("Track {0} vetoed by {1}", foundTrack.ToLoggerFriendlyTrackName(), user);
-
-            if (foundTrack.Vetoes.Count >= skipHelper.RequiredVetoCount(foundTrack))
+	        var requiredVetos = skipHelper.RequiredVetoCount(foundTrack);
+            soundBoardService.PlayFinishHim(requiredVetos, foundTrack);
+            if (foundTrack.Vetoes.Count >= requiredVetos)
 	        {
 	            logger.Info("Maximum vetoes reached on track {0}. Skipping", foundTrack.ToLoggerFriendlyTrackName());
 	            foundTrack.IsSkipped = true;
@@ -284,21 +285,22 @@ namespace PlayMe.Server
 
         private void SkipCurrentTrack(Guid queuedTrackId, string user)
 		{
-            if (!IsUserAdmin(user)) return;
+            if (!IsUserSuperAdmin(user)) return;
 
             if (queuedTrackId != musicPlayer.CurrentlyPlayingTrack.Id) return;
-            
-            logger.Info("{0} skipped the current track {1}", user, musicPlayer.CurrentlyPlayingTrack.ToLoggerFriendlyTrackName());
+            var foundTrack = musicPlayer.CurrentlyPlayingTrack;
+            logger.Info("{0} skipped the current track {1}", user, foundTrack.ToLoggerFriendlyTrackName());
             SkipToNextTrack();
 		}
 
         private void SkipUpcomingTrack(Guid queuedTrackId, string user)
         {
-            if (!IsUserAdmin(user)) return;
+            if (!IsUserSuperAdmin(user)) return;
 
             var foundTrack = queueManager.Get(queuedTrackId);
             if (foundTrack == null) return;
             foundTrack.IsSkipped = true;
+            
             callbackClient.QueueChanged(GetQueue());
             logger.Info("{0} skipped the upcoming track {1}", user, musicPlayer.CurrentlyPlayingTrack.ToLoggerFriendlyTrackName());
         }
@@ -317,7 +319,7 @@ namespace PlayMe.Server
 
 		private void ForgetCurrentTrack(Guid queuedTrackId, string user)
 		{
-			if (!IsUserAdmin(user)) return;
+			if (!IsUserSuperAdmin(user)) return;
 
 		    if (queuedTrackId != musicPlayer.CurrentlyPlayingTrack.Id) return;
 		    musicPlayer.CurrentlyPlayingTrack.Excluded = true;
@@ -328,7 +330,7 @@ namespace PlayMe.Server
 
         private void ForgetUpcomingTrack(Guid queuedTrackId, string user)
         {
-            if (!IsUserAdmin(user)) return;
+            if (!IsUserSuperAdmin(user)) return;
 
             var foundTrack = queueManager.Get(queuedTrackId);
             if (foundTrack == null) return;
@@ -385,6 +387,12 @@ namespace PlayMe.Server
 	    {
 	        return userService.IsUserAdmin(user);
 	    }
+
+
+        public bool IsUserSuperAdmin(string user)
+        {
+            return userService.IsUserSuperAdmin(user);
+        }
 
 	    public IEnumerable<User> GetAdminUsers() 
 		{
@@ -474,6 +482,8 @@ namespace PlayMe.Server
         {
             var foundTrack = queueManager.Get(queuedTrackId);
             if (foundTrack.Likes.Any(v => v.ByUser == user)) return;
+         	if (foundTrack.User == user) return; //Cant like your own track.
+
             foundTrack.Likes = foundTrack.Likes.ToList();
             foundTrack.Likes.Add(new Like { ByUser = user });
 
@@ -488,6 +498,7 @@ namespace PlayMe.Server
             if (foundTrack == null || foundTrack.Id != queuedTrackId) return;
 
 		    if (foundTrack.Likes.Any(v => v.ByUser == user)) return;
+			if (foundTrack.User == user) return; //Cant like your own track.
 
             foundTrack.Likes = foundTrack.Likes.ToList();
 		    foundTrack.Likes.Add(new Like {ByUser = user});

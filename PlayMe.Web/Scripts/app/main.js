@@ -24,7 +24,11 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'repositories
     
     app.isAdmin = ko.observable(false);
     userRepository.isAdmin(app.isAdmin);
-    app.start().then(function() {
+
+    app.isSuperAdmin = ko.observable(false);
+    userRepository.isSuperAdmin(app.isSuperAdmin);
+
+    app.start().then(function () {
         viewLocator.useConvention();
         app.setRoot('viewmodels/shell');
     });

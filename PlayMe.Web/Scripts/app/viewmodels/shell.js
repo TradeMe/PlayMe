@@ -3,7 +3,7 @@
     return {
         authorizedRoutes: ko.computed(function() {
             return router.navigationModel().filter(function (r) {
-                 return (r.settings && r.settings.admin) ? app.isAdmin() : true;
+                 return (r.settings && r.settings.admin) ? app.isSuperAdmin() : true;
             });
         }),
         router: router,

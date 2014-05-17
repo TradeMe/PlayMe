@@ -18,11 +18,16 @@ namespace PlayMe.Server
         }
 
         public bool IsUserAdmin(string user)
-        {
-            bool hardCodedAdmin = userSettings.AdminUsers.Any(a => a.ToLower() == user.ToLower());
+        {            
             bool databaseAdmin = userDataService.GetAll().Any(a => a.Username.ToLower() == user.ToLower());
 
-            return hardCodedAdmin || databaseAdmin;
+            return IsUserSuperAdmin(user) || databaseAdmin;
+        }
+
+
+        public bool IsUserSuperAdmin(string user)
+        {
+            return userSettings.AdminUsers.Any(a => a.ToLower() == user.ToLower());
         }
 
         public IEnumerable<User> GetAdminUsers()

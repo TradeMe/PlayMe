@@ -96,6 +96,9 @@ namespace PlayMe.Server.Interfaces
         bool IsUserAdmin(string user);
 
         [OperationContract]
+        bool IsUserSuperAdmin(string user);
+
+        [OperationContract]
         IEnumerable<User> GetAdminUsers();
 
         [OperationContract]
