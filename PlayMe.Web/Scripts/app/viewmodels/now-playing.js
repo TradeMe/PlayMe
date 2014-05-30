@@ -1,4 +1,4 @@
-﻿define(['durandal/app'], function (app) {
+﻿define(['durandal/app','repositories/queueRepository'], function (app, queueRepository) {
     var tabs = {
         playingSoon: 'playingSoon',
         recentlyPlayed: 'recentlyPlayed'
@@ -66,7 +66,13 @@
     };
 
     hub.client.updateRecentlyPlayed = function (data) {
-        recentlyPlayed(ko.mapping.fromJS(data).PageData());
+        var results = ko.mapping.fromJS(data).PageData();
+        ko.utils.arrayForEach(results, function (item) {
+            var otherStuff = { ReasonExpanded: ko.observable(false) };
+            $.extend(item.Track, otherStuff);
+        });
+
+        recentlyPlayed(results);
     };
 
     return {
@@ -130,7 +136,19 @@
             return (positionAsMilliseconds() / durationAsMs) * 100;
 
         }),
-
+        queueTrack: function (track) {
+            track.ReasonExpanded(false);
+            queueRepository.queueTrack(track);
+        },
+        expandReason: function (track) {
+            if (!track.IsAlreadyQueued()) {
+                if (track.ReasonExpanded()) {
+                    track.ReasonExpanded(false);
+                } else {
+                    track.ReasonExpanded(true);
+                }
+            }
+        },
         showQueueActions: function (item) {
             if (!item.StartedPlayingDateTime()) {
                 item.queueActionsShown(true);
@@ -142,7 +160,6 @@
                 item.queueActionsShown(false);
             }
         },
-
         activate: function () {
             if ($.connection.hub.state === $.signalR.connectionState.disconnected) {
                 //Set the current time every 1/2 second.
