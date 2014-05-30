@@ -9,6 +9,15 @@
                 }
             );
         },
+        isSuperAdmin: function (observable) {
+            //we don't care about an error
+            return $.getJSON(
+                'api/admin/isUserSuperAdmin',
+                function (data) {
+                    observable(data);
+                }
+            );
+        },
         getAdminUsers : function (adminUsersObservable) {
             return $.getJSON(
                 'api/admin/GetAdminUsers',

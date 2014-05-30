@@ -14,7 +14,7 @@ namespace PlayMe.Web.Controllers
         {
             using (var client = new MusicServiceClient())
             {
-                if (!IsUserAdmin())
+                if (!IsUserSuperAdmin())
                     throw new HttpResponseException(new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized));
 
                 Guid idGuid;
@@ -33,6 +33,14 @@ namespace PlayMe.Web.Controllers
                 return client.IsUserAdmin(User.Identity.Name);
             }
         }
+        [HttpGet]
+        public bool IsUserSuperAdmin()
+        {
+            using (var client = new MusicServiceClient())
+            {
+                return client.IsUserSuperAdmin(User.Identity.Name);
+            }
+        }
 
         [HttpGet]
         public IEnumerable<User> GetAdminUsers() 
@@ -48,7 +56,7 @@ namespace PlayMe.Web.Controllers
         { 
             using (var client = new MusicServiceClient())
             {
-                if (!IsUserAdmin()) 
+                if (!IsUserSuperAdmin()) 
                     throw new HttpResponseException(new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized));
    
                 // fix format of Username
@@ -64,7 +72,7 @@ namespace PlayMe.Web.Controllers
         {
             using (var client = new MusicServiceClient())
             {
-                if (!IsUserAdmin())
+                if (!IsUserSuperAdmin())
                 {
                     throw new HttpResponseException(new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized));
                 }
@@ -83,7 +91,7 @@ namespace PlayMe.Web.Controllers
         {
             using (var client = new MusicServiceClient())
             {                
-                if (!IsUserAdmin())
+                if (!IsUserSuperAdmin())
                     throw new HttpResponseException(new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized));
 
                 return client.AddRickRoll(playMeObject);
@@ -95,7 +103,7 @@ namespace PlayMe.Web.Controllers
         {
             using (var client = new MusicServiceClient())
             {
-                if (!IsUserAdmin())
+                if (!IsUserSuperAdmin())
                     throw new HttpResponseException(new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized));
 
                 client.RemoveRickRoll(id);

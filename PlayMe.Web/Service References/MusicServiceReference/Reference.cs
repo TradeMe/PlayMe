@@ -252,6 +252,12 @@ namespace PlayMe.Web.MusicServiceReference {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMusicService/IsUserAdmin", ReplyAction="http://tempuri.org/IMusicService/IsUserAdminResponse")]
         System.Threading.Tasks.Task<bool> IsUserAdminAsync(string user);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMusicService/IsUserSuperAdmin", ReplyAction="http://tempuri.org/IMusicService/IsUserSuperAdminResponse")]
+        bool IsUserSuperAdmin(string user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMusicService/IsUserSuperAdmin", ReplyAction="http://tempuri.org/IMusicService/IsUserSuperAdminResponse")]
+        System.Threading.Tasks.Task<bool> IsUserSuperAdminAsync(string user);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMusicService/GetAdminUsers", ReplyAction="http://tempuri.org/IMusicService/GetAdminUsersResponse")]
         PlayMe.Common.Model.User[] GetAdminUsers();
         
@@ -500,6 +506,14 @@ namespace PlayMe.Web.MusicServiceReference {
         
         public System.Threading.Tasks.Task<bool> IsUserAdminAsync(string user) {
             return base.Channel.IsUserAdminAsync(user);
+        }
+        
+        public bool IsUserSuperAdmin(string user) {
+            return base.Channel.IsUserSuperAdmin(user);
+        }
+        
+        public System.Threading.Tasks.Task<bool> IsUserSuperAdminAsync(string user) {
+            return base.Channel.IsUserSuperAdminAsync(user);
         }
         
         public PlayMe.Common.Model.User[] GetAdminUsers() {
