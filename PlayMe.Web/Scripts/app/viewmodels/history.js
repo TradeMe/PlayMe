@@ -9,6 +9,7 @@
         }
         return historyRepository.getHistory(history, hasMorePages, historyFilter());
     };
+    
     return {
         history: history,
         filter: historyFilter,
@@ -19,7 +20,17 @@
             return getHistory(false);
         },
         queueTrack: function (track) {
+            track.ReasonExpanded(false);
             queueRepository.queueTrack(track);
+        },
+        expandReason: function (track) {
+            if (!track.IsAlreadyQueued()) {
+                if (track.ReasonExpanded()) {
+                    track.ReasonExpanded(false);
+                } else {
+                    track.ReasonExpanded(true);
+                }
+            }
         },
         activate: function (filter) {
             historyFilter(filter || 'all');

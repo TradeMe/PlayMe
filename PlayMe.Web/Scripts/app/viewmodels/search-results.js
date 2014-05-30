@@ -33,10 +33,19 @@
         showAlbums: showAlbums,
         showTracks: showTracks,
         
-        queueTrack: function(track) {
+        queueTrack: function (track) {
+            track.ReasonExpanded(false);
             queueRepository.queueTrack(track);
         },
-
+        expandReason : function(track) {
+            if (!track.IsAlreadyQueued()) {
+                if (track.ReasonExpanded()) {
+                    track.ReasonExpanded(false);
+                } else {
+                    track.ReasonExpanded(true);
+                }
+            }
+        },
         activate: function (context) {
             searchedFor(context.searchTerm);
             

@@ -128,7 +128,10 @@ namespace PlayMe.Server.Providers.SoundCloud
 
 
             var track = ExecuteRequest<SoundTrack.Track>(request);
-
+            if (track.id == 0)
+            {
+                return null;
+            }
             return trackMapper.Map(track, this, user);
         }
 
