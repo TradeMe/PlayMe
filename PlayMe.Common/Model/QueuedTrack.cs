@@ -65,5 +65,10 @@ namespace PlayMe.Common.Model
         /// skipped by admin.
         /// </summary>
         public bool IsSkipped { get; set; }
+
+        /// <summary>
+        /// Optional freetext reason for queueing this track
+        /// </summary>
+        public string Reason { get; set; }
     }
 }

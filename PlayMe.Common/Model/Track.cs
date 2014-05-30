@@ -13,5 +13,6 @@ namespace PlayMe.Common.Model
         public bool IsAvailable { get; set; }
         public int Popularity { get; set; }
         public string TrackArtworkUrl { get; set; }
+        public string Reason { get; set; }
     }
 }

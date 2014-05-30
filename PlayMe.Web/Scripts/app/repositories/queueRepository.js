@@ -10,8 +10,13 @@
 
     var queueTrack = function (track) {        
         if (track.IsAlreadyQueued() == false) {
+            var tr = new Object();
+            tr.id = encodeURIComponent(track.Link());
+            tr.provider = track.MusicProvider.Identifier();
+            tr.reason = track.Reason();
             return $.post(
-                'api/Queue/Enqueue/' + track.MusicProvider.Identifier() + '/' + encodeURIComponent(track.Link()),
+                'api/Queue/Enqueue',
+                tr,
                 function (data) {
                     if (data != '') {
                         track.IsAlreadyQueued(false);

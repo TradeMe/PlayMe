@@ -1,1 +1,12 @@
-﻿<button style="width:80px" class="btn" data-bind="click: $root.queueTrack, css: { disabled: IsAlreadyQueued, 'btn-success': IsAlreadyQueued, 'btn-default': !IsAlreadyQueued() }, text: IsAlreadyQueued()==true ? 'Queued' : 'Queue'">Queue</button>
+﻿<div class="input-group btn-queue" style="width:200px;">
+    <div class="btn-queue-input">
+        <span class="bullhorn" onclick="$(this).parent().toggleClass('clicked')">
+            <i class="reason-icon" style="margin-top: 3px;"/>
+        </span>
+        <input type="text" class="dropleft-toggle form-control" placeholder="Why are you queueing this?" data-bind="    value: Reason, valueUpdate: 'keyup'">
+    </div>
+    <div class="input-group-btn">
+        <button style="width:80px" class="btn btn-default" data-bind="click: $root.queueTrack, css: { disabled: IsAlreadyQueued, 'btn-success': IsAlreadyQueued, 'btn-default': !IsAlreadyQueued() }, text: IsAlreadyQueued() == true ? 'Queued' : 'Queue'">Queue</button>
+    </div>
+</div>
+

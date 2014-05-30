@@ -3,6 +3,7 @@ namespace PlayMe.Server.SoundBoard
 {
     public interface ISoundBoardService
     {
-         void PlayVetoSound();
+        void PlayFinishHim();
+        void PlayVetoSound();
     }
 }

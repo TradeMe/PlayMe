@@ -18,7 +18,7 @@ namespace PlayMe.Server.AutoPlay
         private readonly Settings settings;
         private readonly IMusicProviderFactory musicProviderFactory;
         private readonly IRandomizerFactory randomizerFactory;
-        
+
         public DefaultAutoPlay(
             IMusicProviderFactory musicProviderFactory, 
             IDataService<MapReduceResult<TrackScore>> trackScoreDataService,
@@ -57,7 +57,7 @@ namespace PlayMe.Server.AutoPlay
         }
         
         private void FillBagWithAutoplayTracks(object stateInfo)
-        {            
+        {
             var scoredTracks = PickTracks();
             if (scoredTracks == null)
                 return;
