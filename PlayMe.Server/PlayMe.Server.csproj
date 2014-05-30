@@ -271,7 +271,6 @@
     <Compile Include="UserSettings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Debug.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

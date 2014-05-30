@@ -1,9 +1,12 @@
 ﻿
+using PlayMe.Common.Model;
+
 namespace PlayMe.Server.SoundBoard
 {
     public interface ISoundBoardService
     {
-        void PlayFinishHim();
         void PlayVetoSound();
+
+        void PlayFinishHim(int requiredVetos, QueuedTrack foundTrack);
     }
 }

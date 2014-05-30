@@ -29,6 +29,10 @@
                     <span data-bind="if: $data.StartedPlayingDateTime"> played at <span data-bind="    timeAndDate: StartedPlayingDateTime"></span></span>
                 </li>
                 </li>
+                <li class="small-text" data-bind="if: $data.StartedPlayingDateTime">
+                    Likes/Vetoes: <span class="badge badge-like" data-bind="text: $data.LikeCount, popover: { template: 'likesPopover', visible: Likes().length, title: 'Liked by' }"></span> 
+                    / <span data-bind="text: $data.VetoCount, popover: { template: 'vetoesPopover', visible: Vetoes().length, title: 'Vetoed by' }" class="badge badge-veto"></span>
+                </li>
             </ul>
         </li>
         <!--

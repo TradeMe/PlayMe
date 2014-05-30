@@ -113,6 +113,19 @@ namespace PlayMe.Server.SoundBoard
            }
            return string.Empty;
        }
+
+       public void PlayFinishHim(int requiredVetos, QueuedTrack foundTrack)
+       {
+           if (soundBoardSettings.IsEnabled)
+           {
+               var howManyVetosToGo = (requiredVetos - foundTrack.VetoCount);
+
+               if (foundTrack.LikeCount > 5 && howManyVetosToGo == 1)
+               {
+                   player.PlayFromFile(pathBuilder.BuildFilePath("finishhim.wav"));
+               }
+           }
+       }
     }
 
     
