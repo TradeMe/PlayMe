@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using PlayMe.Common.Model;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Server.Helpers.Interfaces;
 
 namespace PlayMe.Server.Providers.SoundCloud.Mappers

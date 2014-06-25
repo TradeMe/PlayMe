@@ -2,8 +2,8 @@
 using System.Linq;
 using Moq;
 using NUnit.Framework;
-using PlayMe.Common.Model;
 using PlayMe.Data;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Server;
 using PlayMe.Server.Providers;
 using PlayMe.UnitTest.Plumbing;
@@ -26,7 +26,7 @@ namespace PlayMe.UnitTest.PlayMe.Server
                                 
                             };
 
-            var dsMock = GetMock<IDataService<RickRoll>>();
+            var dsMock = GetMock<IRepository<RickRoll>>();
             dsMock.Setup(m => m.GetAll()).Returns(new List<RickRoll>{new RickRoll{PlayMeObject = new Track{Link = "Rickrolled"}}}.AsQueryable());
 
             var musicProviderMock = GetMock<IMusicProvider>();
@@ -59,7 +59,7 @@ namespace PlayMe.UnitTest.PlayMe.Server
                 Album = new Album{Link=albumLink, Name = albumName}
             };
 
-            var dsMock = GetMock<IDataService<RickRoll>>();
+            var dsMock = GetMock<IRepository<RickRoll>>();
             dsMock.Setup(m => m.GetAll()).Returns(new List<RickRoll> { new RickRoll { PlayMeObject = new PlayMeObject{ Link = albumLink } } }.AsQueryable());
 
             var musicProviderMock = GetMock<IMusicProvider>();
@@ -94,7 +94,7 @@ namespace PlayMe.UnitTest.PlayMe.Server
                 Artists = new[] { new Artist { Link = "AnArtist", Name = "ArtistName"}, new Artist { Link = artistLink, Name = artistName } }
             };
 
-            var dsMock = GetMock<IDataService<RickRoll>>();
+            var dsMock = GetMock<IRepository<RickRoll>>();
             dsMock.Setup(m => m.GetAll()).Returns(new List<RickRoll> { new RickRoll { PlayMeObject = new PlayMeObject{ Link = artistLink } } }.AsQueryable());
 
             var musicProviderMock = GetMock<IMusicProvider>();
@@ -125,7 +125,7 @@ namespace PlayMe.UnitTest.PlayMe.Server
                 Artists = new[]{new Artist{Link="MyArtist",Name = "MyArtistName"}}
             };
 
-            var dsMock = GetMock<IDataService<RickRoll>>();
+            var dsMock = GetMock<IRepository<RickRoll>>();
             dsMock.Setup(m => m.GetAll()).Returns(new[]{ new RickRoll{ PlayMeObject = new PlayMeObject{ Link = "ATrack" } } }.AsQueryable());
             //act
             ClassUnderTest.RickRoll(track, user);

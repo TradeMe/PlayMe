@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
-using PlayMe.Common.Model;
 using PlayMe.Data;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Server.Interfaces;
 using PlayMe.Server.Player;
 using PlayMe.Server.SoundBoard;
@@ -45,7 +45,7 @@ namespace PlayMe.UnitTest.PlayMe.Server
             var nowMock = GetMock<INowHelper>();
             nowMock.Setup(m => m.Now).Returns(new DateTime(2013, 1, 2));
 
-            var dataServiceMock = GetMock<IDataService<SoundBoardInfo>>();
+            var dataServiceMock = GetMock<IRepository<SoundBoardInfo>>();
             dataServiceMock.Setup(m => m.GetAll())
                            .Returns(new List<SoundBoardInfo>(){new SoundBoardInfo {lastSkippedSongTime = new DateTime(2013, 1, 1).ToUniversalTime()}}.AsQueryable());
 
@@ -72,7 +72,7 @@ namespace PlayMe.UnitTest.PlayMe.Server
             var nowMock = GetMock<INowHelper>();
             nowMock.Setup(m => m.Now).Returns(new DateTime(2013, 1, 1));
 
-            var dataServiceMock = GetMock<IDataService<SoundBoardInfo>>();
+            var dataServiceMock = GetMock<IRepository<SoundBoardInfo>>();
             dataServiceMock.Setup(m => m.GetAll())
                            .Returns(new List<SoundBoardInfo>() { new SoundBoardInfo { lastSkippedSongTime = new DateTime(2013, 1, 1).ToUniversalTime() } }.AsQueryable());
 
@@ -100,7 +100,7 @@ namespace PlayMe.UnitTest.PlayMe.Server
             var nowMock = GetMock<INowHelper>();
             nowMock.Setup(m => m.Now).Returns(new DateTime(2013, 1, 2, 10, 0, 5));
 
-            var dataServiceMock = GetMock<IDataService<SoundBoardInfo>>();
+            var dataServiceMock = GetMock<IRepository<SoundBoardInfo>>();
             dataServiceMock.Setup(m => m.GetAll())
                            .Returns(new List<SoundBoardInfo>() { new SoundBoardInfo { lastSkippedSongTime = new DateTime(2013, 1, 2 , 10, 0, 0).ToUniversalTime(), skippedSongsCount = lastSkipCount} }.AsQueryable());
 
@@ -131,7 +131,7 @@ namespace PlayMe.UnitTest.PlayMe.Server
             var nowMock = GetMock<INowHelper>();
             nowMock.Setup(m => m.Now).Returns(new DateTime(2013, 1, 2, 10, 0, 5));
 
-            var dataServiceMock = GetMock<IDataService<SoundBoardInfo>>();
+            var dataServiceMock = GetMock<IRepository<SoundBoardInfo>>();
             dataServiceMock.Setup(m => m.GetAll())
                            .Returns(new List<SoundBoardInfo>() { new SoundBoardInfo { lastSkippedSongTime = new DateTime(2013, 1, 2, 10, 0, 0).ToUniversalTime(), skippedSongsCount = 11 } }.AsQueryable());
 
@@ -165,7 +165,7 @@ namespace PlayMe.UnitTest.PlayMe.Server
                                     lastSkippedSongTime = new DateTime(2013, 1, 2, 10, 0, 0).ToUniversalTime(),
                                     skippedSongsCount = 3
                                 };
-            var dataServiceMock = GetMock<IDataService<SoundBoardInfo>>();
+            var dataServiceMock = GetMock<IRepository<SoundBoardInfo>>();
             dataServiceMock.Setup(m => m.GetAll())
                            .Returns(new List<SoundBoardInfo>() { soundInfo }.AsQueryable());
             

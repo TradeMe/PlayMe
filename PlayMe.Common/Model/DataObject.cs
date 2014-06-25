@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace PlayMe.Common.Model
 {
@@ -9,7 +9,7 @@ namespace PlayMe.Common.Model
             return Guid.NewGuid();
         }
 
-        public virtual Guid Id { get; set; }
+        public virtual Guid Id { get;  set; }
         public bool IsDeleted { get; set; }
     }
 }

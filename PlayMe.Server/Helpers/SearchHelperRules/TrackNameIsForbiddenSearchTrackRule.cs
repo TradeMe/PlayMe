@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using PlayMe.Common.Model;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Server.Helpers.Interfaces;
 using PlayMe.Server.Helpers.SearchHelperRules.Interfaces;
 

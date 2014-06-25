@@ -1,7 +1,7 @@
 ﻿using System;
 using Moq;
 using NUnit.Framework;
-using PlayMe.Common.Model;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Server.Helpers.SkipHelperRules;
 using PlayMe.Server.Interfaces;
 using PlayMe.UnitTest.Plumbing;

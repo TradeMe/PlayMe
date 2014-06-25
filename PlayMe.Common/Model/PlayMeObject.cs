@@ -2,30 +2,29 @@ using System;
 
 namespace PlayMe.Common.Model
 {
-    public class PlayMeObject
+    public class PlayMeObject: DataObject
     {
-
-        private MusicProviderDescriptor musicProvider;
-
+        private string musicProviderIdentifier;
         public string Link { get; set; }
         public string Name { get; set; }
         public Uri ExternalLink { get; set; }
 
-        public MusicProviderDescriptor MusicProvider
+        public string MusicProviderIdentifier
         {
             get
             {
                 //For tracks that were saved before we introduced Music Providers
-                return musicProvider ?? new MusicProviderDescriptor { Name = "Spotify", Identifier = "sp" };
+                return musicProviderIdentifier ??  "sp";
             }
-
-            set { musicProvider = value; }
+            set 
+            {
+                musicProviderIdentifier = value;
+            }
         }
 
         public override string ToString()
         {
             return string.Format("{0} ({1})", Name, Link);
         }
-        
     }
 }

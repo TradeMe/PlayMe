@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using PlayMe.Common.Model;
 using PlayMe.Data;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Plumbing.Diagnostics;
 using PlayMe.Server.Interfaces;
 using PlayMe.Server.Providers;
@@ -11,15 +11,15 @@ namespace PlayMe.Server
 {
     public class RickRollService : IRickRollService
     {        
-        private readonly IDataService<RickRoll> rickRollDataService;
+        private readonly IRepository<RickRoll> _rickRollRepository;
         private readonly IMusicProviderFactory musicProviderFactory;
         private readonly ILogger logger;
 
-        public RickRollService(IDataService<RickRoll> rickRollDataService,IMusicProviderFactory musicProviderFactory,ILogger logger)
+        public RickRollService(IRepository<RickRoll> _rickRollRepository,IMusicProviderFactory musicProviderFactory,ILogger logger)
         {
             this.logger = logger;
             this.musicProviderFactory = musicProviderFactory;
-            this.rickRollDataService = rickRollDataService;
+            this._rickRollRepository = _rickRollRepository;
         }
 
         public Track RickRoll(Track track, string user)
@@ -52,24 +52,24 @@ namespace PlayMe.Server
                                {
                                    PlayMeObject = playMeObject
                                };
-            rickRollDataService.Insert(rickRoll);
+            _rickRollRepository.Insert(rickRoll);
             return rickRoll;
         }
 
         public void RemoveRickRoll(Guid id)
         {
-            rickRollDataService.Delete(rickRollDataService.Get(id));
+            _rickRollRepository.Delete(_rickRollRepository.Get(id));
         }
         
         public IEnumerable<RickRoll> GetAllRickRolls()
         {
             //Order by name
-            return rickRollDataService.GetAll().OrderBy(r => r.PlayMeObject.Name);
+            return _rickRollRepository.GetAll().OrderBy(r => r.PlayMeObject.Name);
         }
 
         private bool RickRollExists(string id)
         {
-            return rickRollDataService.GetAll().Any(r => r.PlayMeObject.Link == id);
+            return _rickRollRepository.GetAll().Any(r => r.PlayMeObject.Link == id);
         }
 
     }

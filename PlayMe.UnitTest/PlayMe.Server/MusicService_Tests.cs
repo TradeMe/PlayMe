@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
-using PlayMe.Common.Model;
 using PlayMe.Data;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Server;
 using PlayMe.Server.Helpers.Interfaces;
 using PlayMe.Server.Interfaces;
@@ -27,7 +27,7 @@ namespace PlayMe.UnitTest.PlayMe.Server
 
             skipHelper.Setup(m => m.RequiredVetoCount(track)).Returns(3);
             
-            var ds = GetMock<IDataService<QueuedTrack>>();            
+            var ds = GetMock<IRepository<QueuedTrack>>();            
             // Act
             ClassUnderTest.VetoTrack(new Guid(), "a user");
             // Assert
@@ -48,7 +48,7 @@ namespace PlayMe.UnitTest.PlayMe.Server
 
             skipHelper.Setup(m => m.RequiredVetoCount(track)).Returns(1);
 
-            var ds = GetMock<IDataService<QueuedTrack>>();
+            var ds = GetMock<IRepository<QueuedTrack>>();
             // Act
             ClassUnderTest.VetoTrack(new Guid(), "a user");
             // Assert

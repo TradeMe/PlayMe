@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using PlayMe.Common.Model;
 using PlayMe.Data;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Plumbing.Diagnostics;
 using PlayMe.Server.Extensions;
 using PlayMe.Server.Helpers.Interfaces;
@@ -21,7 +21,7 @@ namespace PlayMe.Server
         private DateTime? lastPaused;
         private long totalPausedDuration;
         private QueuedTrack currentlyPlayingTrack;
-        private readonly IDataService<QueuedTrack> queuedTrackDataService;
+        private readonly IRepository<QueuedTrack> _queuedTrackRepository;
         private readonly IAlreadyQueuedHelper alreadyQueuedHelper;
         private readonly ICallbackClient callbackClient;
         private readonly INowHelper nowHelper;
@@ -30,7 +30,7 @@ namespace PlayMe.Server
             ILogger logger, 
             IMusicProviderFactory musicProviderFactory, 
             IRickRollService rickRollService, 
-            IDataService<QueuedTrack> queuedTrackDataService,
+            IRepository<QueuedTrack> _queuedTrackRepository,
             IAlreadyQueuedHelper alreadyQueuedHelper, 
             ICallbackClient callbackClient,
             INowHelper nowHelper)
@@ -38,7 +38,7 @@ namespace PlayMe.Server
             this.nowHelper = nowHelper;
             this.callbackClient = callbackClient;
             this.alreadyQueuedHelper = alreadyQueuedHelper;
-            this.queuedTrackDataService = queuedTrackDataService;
+            this._queuedTrackRepository = _queuedTrackRepository;
             this.rickRollService = rickRollService;
             this.musicProviderFactory = musicProviderFactory;
             this.logger = logger;
@@ -75,9 +75,9 @@ namespace PlayMe.Server
 
             currentProvider.PlayTrack(rickRollTrack);
             trackToPlay.StartedPlayingDateTime = nowHelper.Now;
-            queuedTrackDataService.InsertOrUpdate(trackToPlay);
+            _queuedTrackRepository.InsertOrUpdate(trackToPlay);
             int total;
-            var recentlyPlayed = queuedTrackDataService.GetAll()
+            var recentlyPlayed = _queuedTrackRepository.GetAll()
                 .GetQueuedTracksByUser(null, 1, 5, out total)
                 .Select(r => alreadyQueuedHelper.ResetAlreadyQueued(r, trackToPlay.User)).ToList();
 

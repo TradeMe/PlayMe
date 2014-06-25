@@ -2,7 +2,6 @@
 using System.Linq;
 using System.ServiceModel;
 using Microsoft.AspNet.SignalR;
-using PlayMe.Common.Model;
 using PlayMe.Web.Hubs;
 
 namespace PlayMe.Web.Services

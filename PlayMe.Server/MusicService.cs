@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
-using PlayMe.Common.Model;
+using AutoMapper;
 using PlayMe.Data;
 using PlayMe.Data.Mongo;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Plumbing.Diagnostics;
 using PlayMe.Server.AutoPlay;
 using PlayMe.Server.Broadcast;
@@ -26,8 +27,8 @@ namespace PlayMe.Server
 		private readonly ISkipHelper skipHelper;
         private readonly IVolume volume;
 		private readonly IAutoPlay autoplayer;
-		private readonly IDataService<QueuedTrack> queuedTrackDataService;
-		private readonly IDataService<User> adminUserDataService;
+		private readonly IRepository<QueuedTrack> _queuedTrackRepository;
+		private readonly IRepository<User> _adminUserRepository;
 		private readonly ISearchSuggestionService searchSuggestionService;
 		private readonly ILogger logger;
         
@@ -47,8 +48,8 @@ namespace PlayMe.Server
 	    public MusicService(ILogger logger,
 			IMusicProviderFactory musicProviderFactory,
 			IAutoPlay autoplayer,
-            IDataService<QueuedTrack> queuedTrackDataService,
-			IDataService<User> adminUserDataService,
+            IRepository<QueuedTrack> _queuedTrackRepository,
+			IRepository<User> _adminUserRepository,
 			ISearchSuggestionService searchSuggestionService,
 			IRickRollService rickRollService,
 			IBroadcastService broadcastService,
@@ -75,8 +76,8 @@ namespace PlayMe.Server
 			this.logger = logger;
 			this.musicProviderFactory = musicProviderFactory;
 			this.autoplayer = autoplayer;
-			this.queuedTrackDataService = queuedTrackDataService;
-			this.adminUserDataService = adminUserDataService;
+			this._queuedTrackRepository = _queuedTrackRepository;
+			this._adminUserRepository = _adminUserRepository;
 			this.searchSuggestionService = searchSuggestionService;
 			this.soundBoardService = soundBoardService;
 			this.skipHelper = skipHelper;
@@ -226,7 +227,7 @@ namespace PlayMe.Server
 
             foundTrack.Vetoes = foundTrack.Vetoes.ToList();
 	        foundTrack.Vetoes.Add(new Veto {ByUser = user});
-	        queuedTrackDataService.Update(foundTrack);
+	        _queuedTrackRepository.Update(foundTrack);
 	        logger.Info("Track {0} vetoed by {1}", foundTrack.ToLoggerFriendlyTrackName(), user);
 	        var requiredVetos = skipHelper.RequiredVetoCount(foundTrack);
             soundBoardService.PlayFinishHim(requiredVetos, foundTrack);
@@ -323,7 +324,7 @@ namespace PlayMe.Server
 
 		    if (queuedTrackId != musicPlayer.CurrentlyPlayingTrack.Id) return;
 		    musicPlayer.CurrentlyPlayingTrack.Excluded = true;
-		    queuedTrackDataService.Update(musicPlayer.CurrentlyPlayingTrack);
+		    _queuedTrackRepository.Update(musicPlayer.CurrentlyPlayingTrack);
 		    logger.Info("{0} forgot the current track {1}", user, musicPlayer.CurrentlyPlayingTrack.ToLoggerFriendlyTrackName());
 		    SkipToNextTrack();
 		}
@@ -399,43 +400,51 @@ namespace PlayMe.Server
             return userService.GetAdminUsers(); 
 		}
 
-		/// <summary>
-		/// Adds the given user if they don't already have admin rights.
-		/// </summary>
-		/// <param name="newAdminUser">Throws ArgumentException if null</param>
-		/// <returns>The added User, or null if the user existed</returns>
-		public User AddAdminUser(User newAdminUser, string addedBy)
+	    /// <summary>
+	    /// Adds the given user if they don't already have admin rights.
+	    /// </summary>
+	    /// <param name="newAdminId">Throws ArgumentException if null</param>
+	    /// <param name="addedBy">Username of the user who is granting admin rights</param>
+	    /// <returns>The added User, or null if the user existed</returns>
+        public Common.Model.User AddAdminUser(Guid newAdminId, string addedBy)
 		{
-			if (newAdminUser == null) 
+            if (newAdminId == null || newAdminId == Guid.NewGuid()) 
 			{
 				throw new ArgumentException("Cannot add a null adminUser");
 			}
 
-			bool userAlreadyAdmin = adminUserDataService.GetAll()
-				.Any(t => t.Username == newAdminUser.Username);
+			var foundUser = _adminUserRepository.GetAll()
+                .SingleOrDefault(t => t.Id == newAdminId);
 
-			if (!userAlreadyAdmin)
-			{
-				adminUserDataService.Insert(newAdminUser);
-			    logger.Info("{0} added {1} to the list of admins.", addedBy, newAdminUser.Username);
-				return newAdminUser;
+			if (foundUser != null && !foundUser.IsAdmin)
+            {
+                foundUser.IsAdmin = true;
+                _adminUserRepository.Update(foundUser);
+			    logger.Info("{0} added {1} to the list of admins.", addedBy, foundUser.Username);
+                return Mapper.Map<Common.Model.User>(foundUser);
 			}
 		    return null;
 		}
 
-		public void RemoveAdminUser(string username, string removedBy) 
-		{ 
-			var toRemove = adminUserDataService.GetAll()
-				.FirstOrDefault(t=> t.Username.ToLower() == username.ToLower());
+        public Common.Model.User RemoveAdminUser(Guid adminId, string removedBy)
+        {
+            if (adminId == null || adminId == Guid.NewGuid())
+            {
+                throw new ArgumentException("Cannot remove a null admin user");
+            }
 
-			if (toRemove == null)
-			{
-				throw new ArgumentException("No User could be found with that Guid");
-			}
+            var foundUser = _adminUserRepository.GetAll()
+                .SingleOrDefault(t => t.Id == adminId);
 
-            adminUserDataService.Delete(toRemove);
-            logger.Info("{0} removed {1} from the list of admins.", removedBy, username);
-		}
+            if (foundUser != null && foundUser.IsAdmin)
+            {
+                foundUser.IsAdmin = false;
+                _adminUserRepository.Update(foundUser);
+                logger.Info("{0} removed {1} from the list of admins.", removedBy, foundUser.Username);
+                return Mapper.Map<Common.Model.User>(foundUser);
+            }
+            return null;
+        }
 
         public PagedResult<LogEntry> GetLogEntries(SortDirection direction, int start, int take)
         {	
@@ -454,7 +463,7 @@ namespace PlayMe.Server
 		{
 			logger.Debug("Getting track history records {0} to {1} for user {2}",start,start+limit,user);
 		    int total;
-			var results = queuedTrackDataService.GetAll()
+			var results = _queuedTrackRepository.GetAll()
 				.GetQueuedTracksByUser(user, start, limit, out total)
 				.Select(r => alreadyQueuedHelper.ResetAlreadyQueued(r, user));
 
@@ -502,7 +511,7 @@ namespace PlayMe.Server
 
             foundTrack.Likes = foundTrack.Likes.ToList();
 		    foundTrack.Likes.Add(new Like {ByUser = user});
-		    queuedTrackDataService.Update(foundTrack);
+		    _queuedTrackRepository.Update(foundTrack);
             logger.Debug("{0} liked track {1}", user, foundTrack.ToLoggerFriendlyTrackName());
             
             broadcastService.Broadcast(foundTrack);
@@ -514,7 +523,7 @@ namespace PlayMe.Server
 		{
 			logger.Debug("Getting like records {0} to {1} for user {2}", start, start + limit, user);
 		    int total;
-            var results = queuedTrackDataService.GetAll()
+            var results = _queuedTrackRepository.GetAll()
 				.GetLikedTracks(user, start, limit, out total);
 			logger.Debug("Successfully got like records {0} to {1} for user {2}", start, start + limit, user);
 			return new PagedResultHelper().GetPagedResult(start, limit, results);

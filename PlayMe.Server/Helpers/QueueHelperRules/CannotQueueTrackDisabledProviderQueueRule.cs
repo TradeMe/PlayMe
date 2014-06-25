@@ -1,4 +1,4 @@
-﻿using PlayMe.Common.Model;
+﻿using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Server.Helpers.QueueHelperRules.Interfaces;
 using PlayMe.Server.Interfaces;
 

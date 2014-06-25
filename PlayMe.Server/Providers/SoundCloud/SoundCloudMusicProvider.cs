@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Newtonsoft.Json;
-using PlayMe.Common.Model;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Plumbing.Diagnostics;
 using PlayMe.Server.Player;
 using RestSharp;

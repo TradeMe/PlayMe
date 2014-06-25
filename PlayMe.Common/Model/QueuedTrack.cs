@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace PlayMe.Common.Model
 {
-    public class QueuedTrack : SavedTrack
+    public class QueuedTrack: DataObject
     {
         private IList<Veto> vetoes=new List<Veto>();
         private IList<Like> likes = new List<Like>();
@@ -66,8 +66,10 @@ namespace PlayMe.Common.Model
         /// </summary>
         public bool IsSkipped { get; set; }
 
+        public Track Track { get; set; }
+
         /// <summary>
-        /// Optional freetext reason for queueing this track
+        /// Optional freetext reason for queuing this track
         /// </summary>
         public string Reason { get; set; }
     }

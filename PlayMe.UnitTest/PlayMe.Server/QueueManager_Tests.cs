@@ -1,6 +1,6 @@
 ﻿using Moq;
 using NUnit.Framework;
-using PlayMe.Common.Model;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Plumbing.Diagnostics;
 using PlayMe.Server;
 using PlayMe.Server.Helpers.Interfaces;

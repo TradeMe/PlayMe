@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using PlayMe.Common.Model;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Server.Helpers.QueueHelperRules;
 using PlayMe.Server.Interfaces;
 

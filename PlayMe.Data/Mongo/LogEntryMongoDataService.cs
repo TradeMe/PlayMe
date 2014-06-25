@@ -4,11 +4,11 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using PlayMe.Common.Model;
+using PlayMe.Data.NHibernate.Entities;
 
 namespace PlayMe.Data.Mongo
 {
-    public class LogEntryMongoDataService //: MongoDataService<LogEntry>
+    public class LogEntryMongoDataService //: MongoRepository<LogEntry>
     {
         public LogEntryMongoDataService()
         {

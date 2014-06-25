@@ -1,6 +1,6 @@
-﻿namespace PlayMe.Common.Model
+namespace PlayMe.Common.Model
 {
-    public class Veto
+    public class Veto : DataObject
     {
         public string ByUser { get; set; }
     }

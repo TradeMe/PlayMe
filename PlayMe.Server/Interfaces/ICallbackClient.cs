@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using PlayMe.Common.Model;
+using PlayMe.Data.NHibernate.Entities;
 
 namespace PlayMe.Server.Interfaces
 {

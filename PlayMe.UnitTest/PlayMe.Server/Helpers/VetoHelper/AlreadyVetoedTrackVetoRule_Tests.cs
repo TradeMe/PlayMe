@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
-using PlayMe.Common.Model;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Server.Helpers.VetoHelperRules;
 using PlayMe.UnitTest.Plumbing;
 

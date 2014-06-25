@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
-using PlayMe.Common.Model;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Server.Broadcast;
 using PlayMe.Server.Broadcast.MessageRules;
 using PlayMe.UnitTest.Plumbing;

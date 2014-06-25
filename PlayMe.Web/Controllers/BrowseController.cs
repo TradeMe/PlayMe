@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using PlayMe.Common.Model;
 using PlayMe.Web.MusicServiceReference;
 
 namespace PlayMe.Web.Controllers

@@ -1,4 +1,5 @@
-﻿using PlayMe.Common.Model;
+﻿using PlayMe.Data.NHibernate.Entities;
+
 namespace PlayMe.Server.Helpers.Interfaces
 {
     public interface ISearchRuleHelper

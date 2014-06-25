@@ -10,6 +10,7 @@ namespace PlayMe.Server
             var kernel = new StandardKernel();
             kernel.Load(AppDomain.CurrentDomain.GetAssemblies());
             var service = kernel.Get<MusicWindowsService>();
+            MappingDefinitions.SetUpMappings();
             if (Environment.UserInteractive)
             {                
                 service.Start(args);

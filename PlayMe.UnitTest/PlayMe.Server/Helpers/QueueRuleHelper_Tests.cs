@@ -2,7 +2,7 @@
 using System.Linq;
 using Moq;
 using NUnit.Framework;
-using PlayMe.Common.Model;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Server.Helpers;
 using PlayMe.Server.Helpers.QueueHelperRules.Interfaces;
 

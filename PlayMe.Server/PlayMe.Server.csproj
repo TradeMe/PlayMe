@@ -65,6 +65,12 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
     <Reference Include="Bass.Net">
       <HintPath>..\Lib\Bass.Net.dll</HintPath>
     </Reference>
@@ -163,6 +169,7 @@
     <Compile Include="Helpers\QueueHelperRules\LimitNumberOfTracksQueuedByUserQueueRule.cs" />
     <Compile Include="Helpers\QueueRuleSettings.cs" />
     <Compile Include="Interfaces\IUserSettings.cs" />
+    <Compile Include="MappingDefinitions.cs" />
     <Compile Include="MusicWindowsService.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -245,11 +252,6 @@
     <Compile Include="Queries\QueuedTrackQueries.cs" />
     <Compile Include="Queries\SearchTermQueries.cs" />
     <Compile Include="SearchSuggestionService.cs" />
-    <Compile Include="Service References\PlayMeCallbackServiceReference\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="ServiceModel\NinjectAbstractServiceHost.cs" />
     <Compile Include="ServiceModel\NinjectServiceBehavior.cs" />
     <Compile Include="ServiceModel\NinjectServiceHost.cs" />
@@ -301,9 +303,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\PlayMeCallbackServiceReference\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SoundBoard\Sounds\dominating.wav">
@@ -380,6 +379,7 @@
       <DependentUpon>MusicWindowsService.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <Target Name="AfterBuild">
@@ -393,4 +393,5 @@
     <SlowCheetahTargets Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='true' and Exists('$(SlowCheetah_NuGetImportPath)') ">$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
   </PropertyGroup>
   <Import Project="$(SlowCheetahTargets)" Condition="Exists('$(SlowCheetahTargets)')" Label="SlowCheetah" />
+  <Import Project="..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
 </Project>

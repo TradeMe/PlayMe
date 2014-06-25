@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using Newtonsoft.Json.Linq;
-using PlayMe.Common.Model;
 using PlayMe.Web.Code;
 using PlayMe.Web.MusicServiceReference;
 

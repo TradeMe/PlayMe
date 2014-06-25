@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
-using PlayMe.Common.Model;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Server.Helpers;
 using PlayMe.Server.Queue.Interfaces;
 using PlayMe.UnitTest.Plumbing;

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
-using PlayMe.Common.Model;
 using PlayMe.Data;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Server.Helpers.Interfaces;
 using PlayMe.Server.Helpers.VetoHelperRules;
 using PlayMe.Server.Interfaces;
@@ -33,7 +33,7 @@ namespace PlayMe.UnitTest.PlayMe.Server.Helpers.VetoHelper
         public void if_user_has_already_vetoed_up_to_the_limit_CantVetoTrack_returns_true()
         {
             // Arrange
-            var dsMock = GetMock <IDataService<QueuedTrack>>();
+            var dsMock = GetMock <IRepository<QueuedTrack>>();
             dsMock.Setup(m => m.GetAll())
                   .Returns(new List<QueuedTrack>{
                                     new QueuedTrack
@@ -61,7 +61,7 @@ namespace PlayMe.UnitTest.PlayMe.Server.Helpers.VetoHelper
         public void if_user_has_vetoed_one_less_than_the_limit_CantVetoTrack_returns_false()
         {
             // Arrange
-            var dsMock = GetMock<IDataService<QueuedTrack>>();
+            var dsMock = GetMock<IRepository<QueuedTrack>>();
             dsMock.Setup(m => m.GetAll())
                   .Returns(new List<QueuedTrack>{
                                     new QueuedTrack
@@ -81,7 +81,7 @@ namespace PlayMe.UnitTest.PlayMe.Server.Helpers.VetoHelper
         public void if_user_has_already_vetoed_up_to_the_limit_on_a_previous_day_but_has_no_vetoes_for_current_day_CantVetoTrack_returns_false()
         {
             // Arrange
-            var dsMock = GetMock<IDataService<QueuedTrack>>();
+            var dsMock = GetMock<IRepository<QueuedTrack>>();
             dsMock.Setup(m => m.GetAll())
                   .Returns(new List<QueuedTrack>{
                                     new QueuedTrack
@@ -107,7 +107,7 @@ namespace PlayMe.UnitTest.PlayMe.Server.Helpers.VetoHelper
         public void if_user_has_not_vetoed_anything_CantVetoTrack_returns_false()
         {
             // Arrange
-            var dsMock = GetMock<IDataService<QueuedTrack>>();
+            var dsMock = GetMock<IRepository<QueuedTrack>>();
             dsMock.Setup(m => m.GetAll())
                   .Returns(new List<QueuedTrack>{
                                     new QueuedTrack

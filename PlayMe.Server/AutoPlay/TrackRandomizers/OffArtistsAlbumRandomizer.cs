@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using PlayMe.Common.Model;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Plumbing.Diagnostics;
 using PlayMe.Server.AutoPlay.TrackRandomizers.Interfaces;
 using PlayMe.Server.Extensions;

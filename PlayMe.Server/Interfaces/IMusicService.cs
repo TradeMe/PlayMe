@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ServiceModel;
-using PlayMe.Common.Model;
+using PlayMe.Data.NHibernate.Entities;
 
 namespace PlayMe.Server.Interfaces
 {
@@ -100,18 +100,19 @@ namespace PlayMe.Server.Interfaces
 
         [OperationContract]
         IEnumerable<User> GetAdminUsers();
-
-        [OperationContract]
-        User AddAdminUser(User toAdd, string addedBy);
-       
-        [OperationContract]
-        void RemoveAdminUser(string username, string removedBy);
-
+        
         [OperationContract]
         PagedResult<LogEntry> GetLogEntries(SortDirection direction, int start, int take);
 
         [OperationContract]
         string GetDomain();
+        
+        [OperationContract]
+        Common.Model.User AddAdminUser(Guid newAdminId, string addedBy);
+
+        [OperationContract]
+        Common.Model.User RemoveAdminUser(Guid adminId, string removedBy);
+
         #endregion
     }
 }

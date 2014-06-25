@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
-using PlayMe.Common.Model;
 using PlayMe.Data;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Server.Helpers.Interfaces;
 using PlayMe.Server.Helpers.QueueHelperRules;
 
@@ -41,7 +41,7 @@ namespace PlayMe.UnitTest.PlayMe.Server.Helpers.QueueHelperRules
             queuedTrack.StartedPlayingDateTime = fourHoursAgoPlusOneMinute;
 
             var list = new List<QueuedTrack> { queuedTrack };
-            var queuedTrackDataService = new Mock<IDataService<QueuedTrack>>();
+            var queuedTrackDataService = new Mock<IRepository<QueuedTrack>>();
             queuedTrackDataService.Setup(q => q.GetAll()).Returns(list.AsQueryable());
 
             // Act
@@ -63,7 +63,7 @@ namespace PlayMe.UnitTest.PlayMe.Server.Helpers.QueueHelperRules
             queuedTrack.StartedPlayingDateTime = threeHoursAndfiftyMinutesAgo;
 
             var list = new List<QueuedTrack> { queuedTrack };
-            var queuedTrackDataService = new Mock<IDataService<QueuedTrack>>();
+            var queuedTrackDataService = new Mock<IRepository<QueuedTrack>>();
             queuedTrackDataService.Setup(q => q.GetAll()).Returns(list.AsQueryable());
 
             // Act

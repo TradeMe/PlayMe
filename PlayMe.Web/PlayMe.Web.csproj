@@ -145,11 +145,6 @@
     </Compile>
     <Compile Include="Hubs\QueueHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\MusicServiceReference\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Services\ISpotifyCallbackService.cs" />
     <Compile Include="Services\SpotifyCallbackService.svc.cs">
       <DependentUpon>SpotifyCallbackService.svc</DependentUpon>
@@ -369,9 +364,6 @@
       <Project>{cce34a09-c7e1-4b3c-b3ae-34823d8826bf}</Project>
       <Name>PlayMe.Common</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\MusicServiceReference\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

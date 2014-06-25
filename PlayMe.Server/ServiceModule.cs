@@ -6,9 +6,9 @@ using Ninject.Extensions.Conventions;
 using Ninject.Modules;
 using Ninject.Parameters;
 using NLog;
-using PlayMe.Common.Model;
 using PlayMe.Data;
 using PlayMe.Data.Mongo;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Plumbing.Diagnostics;
 using PlayMe.Server.AutoPlay;
 using PlayMe.Server.AutoPlay.TrackRandomizers;
@@ -58,13 +58,13 @@ namespace PlayMe.Server
             
             //Bind data services
             
-            Bind<IDataService<QueuedTrack>>().To<QueuedTrackMongoDataService>();
-            Bind<IDataService<SearchTerm>>().To<SearchTermMongoDataService>();
-            Bind<IDataService<RickRoll>>().To<RickRollMongoDataService>();            
-            Bind<ISharedCollection<QueuedTrack>>().To<QueuedTrackMongoDataService>();
-            Bind<IDataService<MapReduceResult<TrackScore>>>().To<TrackScoreMongoDataService>();
-            Bind<IDataService<User>>().To<AdminUserMongoDataService>();
-            Bind<IDataService<SoundBoardInfo>>().To<SoundBoardInfoMongoDataService>();               
+            Bind<IRepository<QueuedTrack>>().To<QueuedTrackMongoRepository>();
+            Bind<IRepository<SearchTerm>>().To<SearchTermMongoRepository>();
+            Bind<IRepository<RickRoll>>().To<RickRollMongoRepository>();            
+            Bind<ISharedCollection<QueuedTrack>>().To<QueuedTrackMongoRepository>();
+            Bind<IRepository<MapReduceResult<TrackScore>>>().To<TrackScoreMongoRepository>();
+            Bind<IRepository<User>>().To<AdminUserMongoRepository>();
+            Bind<IRepository<SoundBoardInfo>>().To<SoundBoardInfoMongoRepository>();               
             Bind<ILogger>().ToMethod(x =>
             {
                 var scope = x.Request.ParentRequest.Service.FullName;

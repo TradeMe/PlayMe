@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
-using PlayMe.Common.Model;
 
 namespace PlayMe.Web.Services
 {

@@ -1,4 +1,4 @@
-﻿namespace PlayMe.Common.Model
+namespace PlayMe.Common.Model
 {
     public enum SortDirection
     {

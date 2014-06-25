@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using PlayMe.Common.Model;
 using PlayMe.Data;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Server;
 using PlayMe.Server.Interfaces;
 using PlayMe.UnitTest.Plumbing;
@@ -33,7 +33,7 @@ namespace PlayMe.UnitTest.PlayMe.Server
         {
             //arrange
             string adminUser = "AUser";
-            var adminDataServiceMock = GetMock<IDataService<User>>();
+            var adminDataServiceMock = GetMock<IRepository<User>>();
             adminDataServiceMock.Setup(m => m.GetAll()).Returns(new List<User> { new User { Username = "OneUser" }, new User { Username = "AUser" }, new User { Username = "ThreeUser" } }.AsQueryable());
 
             //act
@@ -52,7 +52,7 @@ namespace PlayMe.UnitTest.PlayMe.Server
             var userSettingsMock = GetMock<IUserSettings>();
             userSettingsMock.Setup(m => m.AdminUsers).Returns(new List<string> { "OneUser" });
 
-            var adminDataServiceMock = GetMock<IDataService<User>>();
+            var adminDataServiceMock = GetMock<IRepository<User>>();
             adminDataServiceMock.Setup(m => m.GetAll()).Returns(new List<User> { new User { Username = "OneUser" }}.AsQueryable());
 
             //act

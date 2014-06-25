@@ -1,5 +1,5 @@
 ﻿using System;
-using PlayMe.Common.Model;
+using PlayMe.Data.NHibernate.Entities;
 using S = SpotiFire.SpotifyLib;
 
 namespace PlayMe.Server.Providers.SpotifyProvider.Mappers

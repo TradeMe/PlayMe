@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PlayMe.Common.Model;
+using PlayMe.Data.NHibernate.Entities;
 
 namespace PlayMe.Server.Queue.Interfaces
 {

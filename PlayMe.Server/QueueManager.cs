@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using PlayMe.Common.Model;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Plumbing.Diagnostics;
 using PlayMe.Server.Extensions;
 using PlayMe.Server.Queue.Interfaces;

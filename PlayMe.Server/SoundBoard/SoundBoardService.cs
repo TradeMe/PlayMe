@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using PlayMe.Common.Model;
 using PlayMe.Data;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Server.Interfaces;
 using PlayMe.Server.Player;
 
@@ -10,7 +10,7 @@ namespace PlayMe.Server.SoundBoard
 {
    public class SoundBoardService : ISoundBoardService
    {
-       private readonly IDataService<SoundBoardInfo> soundBoardDataService;
+       private readonly IRepository<SoundBoardInfo> _soundBoardRepository;
        private readonly ISoundBoardSettings soundBoardSettings;
        private readonly IStreamedPlayer player;
        private readonly IPathBuilder pathBuilder;
@@ -32,13 +32,13 @@ namespace PlayMe.Server.SoundBoard
        private readonly INowHelper nowHelper;
        private bool hasPlayedFinishHimForThisTrack = false;
 
-       public SoundBoardService(IDataService<SoundBoardInfo> soundBoardDataService, ISoundBoardSettings soundBoardSettings, IStreamedPlayer player, IPathBuilder pathBuilder, INowHelper nowHelper)
+       public SoundBoardService(IRepository<SoundBoardInfo> _soundBoardRepository, ISoundBoardSettings soundBoardSettings, IStreamedPlayer player, IPathBuilder pathBuilder, INowHelper nowHelper)
        {
            this.nowHelper = nowHelper;
            this.pathBuilder = pathBuilder;
            this.player = player;
            this.soundBoardSettings = soundBoardSettings;
-           this.soundBoardDataService = soundBoardDataService;
+           this._soundBoardRepository = _soundBoardRepository;
        }
 
        public void PlayFinishHim()
@@ -59,7 +59,7 @@ namespace PlayMe.Server.SoundBoard
                 var lastVetoDateTime = new DateTime();
                 int skipCount = 0;
 
-                var latestVetoInfo = soundBoardDataService.GetAll().FirstOrDefault();
+                var latestVetoInfo = _soundBoardRepository.GetAll().FirstOrDefault();
                 if (latestVetoInfo != null)
                 {
                     lastVetoDateTime = latestVetoInfo.lastSkippedSongTime;
@@ -94,7 +94,7 @@ namespace PlayMe.Server.SoundBoard
                 latestVetoInfo.lastSkippedSongTime = nowHelper.Now;
                 latestVetoInfo.skippedSongsCount = skipCount;
 
-                soundBoardDataService.InsertOrUpdate(latestVetoInfo);
+                _soundBoardRepository.InsertOrUpdate(latestVetoInfo);
 
                 //play the first blood sound if its the first veto of the day
                 if(firstblood)

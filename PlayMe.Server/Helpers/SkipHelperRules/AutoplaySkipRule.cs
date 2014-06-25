@@ -1,5 +1,5 @@
 ﻿using System;
-using PlayMe.Common.Model;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Server.Helpers.Interfaces;
 
 namespace PlayMe.Server.Helpers.SkipHelperRules

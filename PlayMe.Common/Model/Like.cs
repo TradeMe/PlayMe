@@ -1,6 +1,6 @@
-﻿namespace PlayMe.Common.Model
+namespace PlayMe.Common.Model
 {
-    public class Like
+    public class Like : DataObject
     {
         public string ByUser { get; set; }      
     }

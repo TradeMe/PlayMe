@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using PlayMe.Common.Model;
 using PlayMe.Data;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Plumbing.Diagnostics;
 using PlayMe.Server.AutoPlay.TrackRandomizers.Interfaces;
 using PlayMe.Server.Providers;
@@ -19,7 +19,7 @@ namespace PlayMe.Server.AutoPlay.TrackRandomizers
         private readonly ILogger logger;
         private readonly Settings settings;
 
-        public RandomizerFactory(IMusicProviderFactory musicProviderFactory, ILogger logger, IDataService<QueuedTrack> queuedTrackDataService)
+        public RandomizerFactory(IMusicProviderFactory musicProviderFactory, ILogger logger, IRepository<QueuedTrack> _queuedTrackRepository)
         {
             settings = new Settings();
 

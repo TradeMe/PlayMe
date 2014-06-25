@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using PlayMe.Common.Model;
 using PlayMe.Data;
 using PlayMe.Data.Mongo;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Server.AutoPlay.TrackRandomizers;
 using PlayMe.Server.Providers;
 
@@ -12,8 +12,8 @@ namespace PlayMe.Server.AutoPlay
 {
     public class DefaultAutoPlay : IAutoPlay
     {
-        private readonly IDataService<MapReduceResult<TrackScore>> trackScoreDataService;
-        private readonly IDataService<QueuedTrack> queuedTrackDataService;
+        private readonly IRepository<MapReduceResult<TrackScore>> _trackScoreRepository;
+        private readonly IRepository<QueuedTrack> _queuedTrackRepository;
         private readonly Stack<QueuedTrack> _tracksForAutoplaying = new Stack<QueuedTrack>();
         private readonly Settings settings;
         private readonly IMusicProviderFactory musicProviderFactory;
@@ -21,15 +21,15 @@ namespace PlayMe.Server.AutoPlay
 
         public DefaultAutoPlay(
             IMusicProviderFactory musicProviderFactory, 
-            IDataService<MapReduceResult<TrackScore>> trackScoreDataService,
-            IDataService<QueuedTrack> queuedTrackDataService,
+            IRepository<MapReduceResult<TrackScore>> _trackScoreRepository,
+            IRepository<QueuedTrack> _queuedTrackRepository,
             IRandomizerFactory randomizerFactory,
             Settings settings
             )
         {
             
-            this.trackScoreDataService = trackScoreDataService;
-            this.queuedTrackDataService = queuedTrackDataService;
+            this._trackScoreRepository = _trackScoreRepository;
+            this._queuedTrackRepository = _queuedTrackRepository;
             this.musicProviderFactory = musicProviderFactory;
             this.randomizerFactory = randomizerFactory;
             this.settings = settings;
@@ -79,7 +79,7 @@ namespace PlayMe.Server.AutoPlay
 
         private void FillBagWithLastTrack()
         {
-            var chosenTrack =queuedTrackDataService.GetAll()
+            var chosenTrack =_queuedTrackRepository.GetAll()
                 .Where( t => !t.Vetoes.Any())
                 .OrderByDescending(qt => qt.StartedPlayingDateTime)
                 .FirstOrDefault();
@@ -100,7 +100,7 @@ namespace PlayMe.Server.AutoPlay
 
         private IEnumerable<MapReduceResult<TrackScore>> PickTracks(double minMillisecondsSinceLastPlay)
         {
-            return trackScoreDataService.GetAll()
+            return _trackScoreRepository.GetAll()
                 .Where(s => !s.value.IsExcluded && s.value.MillisecondsSinceLastPlay > minMillisecondsSinceLastPlay)                
                 .OrderByDescending(s => s.value.Score)
                 .Take(settings.MaxAutoplayableTracks)

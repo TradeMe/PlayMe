@@ -23,8 +23,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-
   <ItemGroup>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\packages\FluentNHibernate.1.4.0.0\lib\net35\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="MongoDB.Bson, Version=1.8.3.9, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Bson.dll</HintPath>
@@ -33,24 +38,73 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Driver.dll</HintPath>
     </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\packages\NHibernate.3.3.1.4000\lib\Net35\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDataService.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="IUnitOfWorkFactory.cs" />
     <Compile Include="Mongo\LogEntryMongoDataService.cs" />
-    <Compile Include="Mongo\SoundBoardInfoMongoDataService.cs" />
-    <Compile Include="Mongo\RickRollMongoDataService.cs" />
+    <Compile Include="Mongo\SoundBoardInfoMongoRepository.cs" />
+    <Compile Include="Mongo\RickRollMongoRepository.cs" />
     <Compile Include="Mongo\ISharedCollection.cs" />
     <Compile Include="Mongo\MapReduceResult.cs" />
-    <Compile Include="Mongo\MongoDataService.cs" />
+    <Compile Include="Mongo\MongoRepository.cs" />
     <Compile Include="Mongo\MongoSettings.cs" />
-    <Compile Include="Mongo\QueuedTrackMongoDataService.cs" />
-    <Compile Include="Mongo\SearchTermMongoDataService.cs" />
-    <Compile Include="Mongo\TrackScoreMongoDataService.cs" />
-    <Compile Include="Mongo\AdminUserMongoDataService.cs" />
+    <Compile Include="Mongo\QueuedTrackMongoRepository.cs" />
+    <Compile Include="Mongo\SearchTermMongoRepository.cs" />
+    <Compile Include="Mongo\TrackScoreMongoRepository.cs" />
+    <Compile Include="Mongo\AdminUserMongoRepository.cs" />
+    <Compile Include="NHibernate\ClassMaps\AlbumClassMap.cs" />
+    <Compile Include="NHibernate\ClassMaps\ArtistClassMap.cs" />
+    <Compile Include="NHibernate\ClassMaps\BaseClassMap.cs" />
+    <Compile Include="NHibernate\ClassMaps\LikeClassMap.cs" />
+    <Compile Include="NHibernate\ClassMaps\MusicProviderDescriptorClassMap.cs" />
+    <Compile Include="NHibernate\ClassMaps\PlayMeObjectClassMap.cs" />
+    <Compile Include="NHibernate\ClassMaps\QueuedTrackClassMap.cs" />
+    <Compile Include="NHibernate\ClassMaps\TrackClassMap.cs" />
+    <Compile Include="NHibernate\ClassMaps\UserClassMap.cs" />
+    <Compile Include="NHibernate\ClassMaps\VetoClassMap.cs" />
+    <Compile Include="NHibernate\Repository.cs" />
+    <Compile Include="NHibernate\Entities\Album.cs" />
+    <Compile Include="NHibernate\Entities\AlbumPagedList.cs" />
+    <Compile Include="NHibernate\Entities\Artist.cs" />
+    <Compile Include="NHibernate\Entities\ArtistPagedList.cs" />
+    <Compile Include="NHibernate\Entities\ArtistProfile.cs" />
+    <Compile Include="NHibernate\Entities\DataObject.cs" />
+    <Compile Include="NHibernate\Entities\Like.cs" />
+    <Compile Include="NHibernate\Entities\LogEntry.cs" />
+    <Compile Include="NHibernate\Entities\MusicProviderDescriptor.cs" />
+    <Compile Include="NHibernate\Entities\PagedResult.cs" />
+    <Compile Include="NHibernate\Entities\Playlist.cs" />
+    <Compile Include="NHibernate\Entities\PlaylistPagedList.cs" />
+    <Compile Include="NHibernate\Entities\PlayMeObject.cs" />
+    <Compile Include="NHibernate\Entities\QueuedTrack.cs" />
+    <Compile Include="NHibernate\Entities\RickRoll.cs" />
+    <Compile Include="NHibernate\Entities\SearchResults.cs" />
+    <Compile Include="NHibernate\Entities\SearchTerm.cs" />
+    <Compile Include="NHibernate\Entities\SortDirection.cs" />
+    <Compile Include="NHibernate\Entities\SoundBoardInfo.cs" />
+    <Compile Include="NHibernate\Entities\Track.cs" />
+    <Compile Include="NHibernate\Entities\TrackPagedList.cs" />
+    <Compile Include="NHibernate\Entities\TrackScore.cs" />
+    <Compile Include="NHibernate\Entities\User.cs" />
+    <Compile Include="NHibernate\Entities\UserTrack.cs" />
+    <Compile Include="NHibernate\Entities\Veto.cs" />
+    <Compile Include="NHibernate\NHibernateModule.cs" />
+    <Compile Include="NHibernate\SessionFactoryBuilder.cs" />
+    <Compile Include="NHibernate\UnitOfWork.cs" />
+    <Compile Include="NHibernate\UnitOfWorkFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +116,7 @@
       <Name>PlayMe.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,13 +1,13 @@
 using System;
 using System.Linq;
-using PlayMe.Common.Model;
+using PlayMe.Data.NHibernate.Entities;
 using PlayMe.Plumbing.Diagnostics;
 using PlayMe.Server.Player;
 using PlayMe.Server.Providers.SpotifyProvider.Mappers;
 using SpotiFire.SpotifyLib;
-using Album = PlayMe.Common.Model.Album;
-using Artist = PlayMe.Common.Model.Artist;
-using Track = PlayMe.Common.Model.Track;
+using Album = PlayMe.Data.NHibernate.Entities.Album;
+using Artist = PlayMe.Data.NHibernate.Entities.Artist;
+using Track = PlayMe.Data.NHibernate.Entities.Track;
 
 namespace PlayMe.Server.Providers.SpotifyProvider
 {
