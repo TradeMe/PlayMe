@@ -1,26 +1,30 @@
-﻿namespace PlayMe.Server.Player
+﻿using System;
+
+namespace PlayMe.Server.Player
 {
     public class VolumeControl : IVolumeControl
     {
         private const float VolumeStep = 0.05f;
 
-        private float currentVolume = 0.5f;
-        public float CurrentVolume
+        public float CurrentVolume { get; set; }
+
+        public VolumeControl(ISettings settings)
         {
-            get { return currentVolume; }
+            CurrentVolume = settings.StartUpVolume;
         }
+
         public float IncreaseVolume()
         {
-            currentVolume += VolumeStep;
-            if (currentVolume > 1) currentVolume = 1;
-            return currentVolume;
+            CurrentVolume += VolumeStep;
+            if (CurrentVolume > 1) CurrentVolume = 1;
+            return CurrentVolume;
         }
 
         public float DecreaseVolume()
         {
-            currentVolume -= VolumeStep;
-            if (currentVolume < 0) currentVolume = 0;
-            return currentVolume;
+            CurrentVolume -= VolumeStep;
+            if (CurrentVolume < 0.05f) CurrentVolume = 0;
+            return CurrentVolume;
         }
     }
 }

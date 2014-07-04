@@ -10,10 +10,10 @@ namespace PlayMe.Server.Player
         private STREAMPROC streamproc;
         private int currentHandle;
 
-
         public BassBufferedPlayer(IVolumeControl volumeControl)
         {
-            this.volumeControl = volumeControl;            
+            this.volumeControl = volumeControl;
+            Bass.BASS_SetVolume(volumeControl.CurrentVolume);
         }
         public void Pause()
         {

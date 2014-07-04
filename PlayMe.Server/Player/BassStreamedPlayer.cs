@@ -15,6 +15,7 @@ namespace PlayMe.Server.Player
         public BassStreamedPlayer(IVolumeControl volumeControl)
         {
             this.volumeControl = volumeControl;
+            Bass.BASS_SetVolume(volumeControl.CurrentVolume);
         }
 
         public void Pause()
