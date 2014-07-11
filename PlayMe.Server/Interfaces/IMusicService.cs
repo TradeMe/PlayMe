@@ -41,7 +41,7 @@ namespace PlayMe.Server.Interfaces
         IEnumerable<QueuedTrack> GetQueue();
 
         [OperationContract]
-        void ForgetTrack(Guid queuedTrackId, string user);
+        void ForgetTrack(Guid queuedTrackId, string user, bool fromVeto);
 
         [OperationContract]
         void SkipTrack(Guid queuedTrackId, string user);
