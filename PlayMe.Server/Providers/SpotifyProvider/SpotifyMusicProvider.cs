@@ -191,6 +191,7 @@ namespace PlayMe.Server.Providers.SpotifyProvider
                     var albumResult = albumMapper.Map(album, this, true);
                     var tracks = browse.Tracks
                                        .Select(t => trackMapper.Map(t, this, user, false, true))
+                                       .Where(t => t.IsAvailable)
                                        .ToArray();
 
                     albumResult.Tracks = tracks;
