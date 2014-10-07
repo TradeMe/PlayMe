@@ -49,7 +49,7 @@
 
     hub.client.updateCurrentVolume = function (data) {
         //We may get nothing (null) back from the server if the track hasn't started playing
-        if (data) {
+        if (data !== null && data !== undefined) {
             currentVolume(data);
         }
     };

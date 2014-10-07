@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 
 namespace PlayMe.Server
@@ -25,6 +24,16 @@ namespace PlayMe.Server
         public int VetoCount
         {
             get { return Convert.ToInt32(ConfigurationManager.AppSettings["VetoCount"]); }
+        }
+
+        public float StartUpVolume
+        {
+            get
+            {
+                int parsed;
+                string unparsed = ConfigurationManager.AppSettings["StartUpVolumePercentage"];
+                return int.TryParse(unparsed, out parsed) ? (parsed / 100f) : 0.5f;
+            }
         }
 
         public int Randomizer

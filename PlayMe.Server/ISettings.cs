@@ -14,5 +14,6 @@ namespace PlayMe.Server
         decimal RandomWeighting { get; }
         int DontRepeatTrackForHours { get; }
         bool AutoStart { get; }
+        float StartUpVolume { get; }
     }
 }
