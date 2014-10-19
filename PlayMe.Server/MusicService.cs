@@ -23,6 +23,7 @@ namespace PlayMe.Server
 	[ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, InstanceContextMode = InstanceContextMode.Single, IncludeExceptionDetailInFaults = true)]
 	public sealed class MusicService : IMusicService
 	{
+        private const string Vetos = "Vetos";
 		private readonly ISkipHelper skipHelper;
         private readonly IVolume volume;
 		private readonly IAutoPlay autoplayer;
@@ -123,17 +124,13 @@ namespace PlayMe.Server
         public Track GetTrack(string link, string provider, string user)
         {
             var foundProvider = musicProviderFactory.GetMusicProviderByIdentifier(provider);
-            if (foundProvider.IsEnabled)
-            {
-                return foundProvider.GetTrack(link, user);
-            }
-            else
-            {
-                return null;
-            }
+
+            return foundProvider.IsEnabled 
+                ? foundProvider.GetTrack(link, user) 
+                : null;
         }
 
-		#region Browse and Search
+	    #region Browse and Search
 
 		public SearchResults SearchAll(string searchTerm, string provider, string user)
         {
@@ -192,8 +189,8 @@ namespace PlayMe.Server
         {
             if (trackToQueue == null) return "Track could not be found.";
 
-            var errors = queueRuleHelper.CannotQueueTrack(trackToQueue.Track, trackToQueue.User);
-            if (errors != null && errors.Any(e => e != string.Empty)) return errors.FirstOrDefault(e => e != string.Empty);
+            var errors = queueRuleHelper.CannotQueueTrack(trackToQueue.Track, trackToQueue.User).ToList();
+            if (errors.Any(e => e != string.Empty)) return errors.FirstOrDefault(e => e != string.Empty);
 
 		    trackToQueue.Id = DataObject.GenerateId();
 		    queueManager.Enqueue(trackToQueue);
@@ -234,7 +231,7 @@ namespace PlayMe.Server
 	        {
 	            logger.Info("Maximum vetoes reached on track {0}. Skipping", foundTrack.ToLoggerFriendlyTrackName());
 	            foundTrack.IsSkipped = true;
-	            SkipToNextTrack();
+	            ForgetTrack(queuedTrackId, user, true);
 	        }
 	        else
 	        {
@@ -252,6 +249,7 @@ namespace PlayMe.Server
 	        if (foundTrack.Vetoes.Count >= skipHelper.RequiredVetoCount(foundTrack))
 	        {
 	            foundTrack.IsSkipped = true;
+                ForgetTrack(queuedTrackId, user, true);
 	            logger.Info("Maximum vetoes reached on upcoming track {0}. Track will not be played",
 	                        foundTrack.ToLoggerFriendlyTrackName());
 	        }
@@ -305,38 +303,42 @@ namespace PlayMe.Server
             logger.Info("{0} skipped the upcoming track {1}", user, musicPlayer.CurrentlyPlayingTrack.ToLoggerFriendlyTrackName());
         }
 
-        public void ForgetTrack(Guid queuedTrackId, string user)
+        public void ForgetTrack(Guid queuedTrackId, string user, bool fromVeto)
         {
             if (queueManager.Contains(queuedTrackId))
             {
-                ForgetUpcomingTrack(queuedTrackId, user);
+                ForgetUpcomingTrack(queuedTrackId, user, fromVeto);
             }
             else
             {
-                ForgetCurrentTrack(queuedTrackId, user);
+                ForgetCurrentTrack(queuedTrackId, user, fromVeto);
             }
         }
 
-		private void ForgetCurrentTrack(Guid queuedTrackId, string user)
+		private void ForgetCurrentTrack(Guid queuedTrackId, string user, bool fromVeto)
 		{
-			if (!IsUserSuperAdmin(user)) return;
+			if (!IsUserSuperAdmin(user) && !fromVeto) return;
 
 		    if (queuedTrackId != musicPlayer.CurrentlyPlayingTrack.Id) return;
 		    musicPlayer.CurrentlyPlayingTrack.Excluded = true;
 		    queuedTrackDataService.Update(musicPlayer.CurrentlyPlayingTrack);
-		    logger.Info("{0} forgot the current track {1}", user, musicPlayer.CurrentlyPlayingTrack.ToLoggerFriendlyTrackName());
+		    logger.Info("{0} forgot the current track {1}", 
+                        fromVeto ? Vetos : user, 
+                        musicPlayer.CurrentlyPlayingTrack.ToLoggerFriendlyTrackName());
 		    SkipToNextTrack();
 		}
 
-        private void ForgetUpcomingTrack(Guid queuedTrackId, string user)
+        private void ForgetUpcomingTrack(Guid queuedTrackId, string user, bool fromVeto)
         {
-            if (!IsUserSuperAdmin(user)) return;
+            if (!IsUserSuperAdmin(user) && !fromVeto) return;
 
             var foundTrack = queueManager.Get(queuedTrackId);
             if (foundTrack == null) return;
             foundTrack.Excluded = true;
             callbackClient.QueueChanged(GetQueue());
-            logger.Info("{0} forgot the upcoming track {1}", user, musicPlayer.CurrentlyPlayingTrack.ToLoggerFriendlyTrackName());
+            logger.Info("{0} forgot the upcoming track {1}", 
+                        fromVeto ? Vetos : user, 
+                        musicPlayer.CurrentlyPlayingTrack.ToLoggerFriendlyTrackName());
         }
 
 		private void SkipToNextTrack()
@@ -403,6 +405,7 @@ namespace PlayMe.Server
 		/// Adds the given user if they don't already have admin rights.
 		/// </summary>
 		/// <param name="newAdminUser">Throws ArgumentException if null</param>
+		/// <param name="addedBy"></param>
 		/// <returns>The added User, or null if the user existed</returns>
 		public User AddAdminUser(User newAdminUser, string addedBy)
 		{
