@@ -31,6 +31,7 @@ namespace PlayMe.Server
 		private readonly IDataService<User> adminUserDataService;
 		private readonly ISearchSuggestionService searchSuggestionService;
 		private readonly ILogger logger;
+        private readonly ISettings settings;
         
 		private readonly IMusicProviderFactory musicProviderFactory;
 		private readonly IRickRollService rickRollService;
@@ -86,6 +87,7 @@ namespace PlayMe.Server
 	        this.callbackClient = callbackClient;
             this.userService = userService;            
             this.queueRuleHelper = queueRuleHelper;
+	        this.settings = settings;
 
 	        this.searchRuleHelper = searchRuleHelper;
 	        foreach (var provider in musicProviderFactory.GetAllMusicProviders())
@@ -229,9 +231,9 @@ namespace PlayMe.Server
             soundBoardService.PlayFinishHim(requiredVetos, foundTrack);
             if (foundTrack.Vetoes.Count >= requiredVetos)
 	        {
+                SkipTrackViaMaxVetoesExceeded(queuedTrackId, user);
 	            logger.Info("Maximum vetoes reached on track {0}. Skipping", foundTrack.ToLoggerFriendlyTrackName());
 	            foundTrack.IsSkipped = true;
-	            ForgetTrack(queuedTrackId, user, true);
 	        }
 	        else
 	        {
@@ -249,15 +251,24 @@ namespace PlayMe.Server
 	        if (foundTrack.Vetoes.Count >= skipHelper.RequiredVetoCount(foundTrack))
 	        {
 	            foundTrack.IsSkipped = true;
-                ForgetTrack(queuedTrackId, user, true);
+                SkipTrackViaMaxVetoesExceeded(queuedTrackId, user);
 	            logger.Info("Maximum vetoes reached on upcoming track {0}. Track will not be played",
 	                        foundTrack.ToLoggerFriendlyTrackName());
+
 	        }
 	        else
 	        {
                 logger.Info("Upcoming track {0} vetoed by {1}", foundTrack.ToLoggerFriendlyTrackName(), user);
 	        }
 	        callbackClient.QueueChanged(queueManager.GetAll());
+	    }
+
+	    private void SkipTrackViaMaxVetoesExceeded(Guid queuedTrackId, string user)
+	    {
+            if (settings.ForgetTrackThatExceedsMaxVetoes)
+            {
+                ForgetTrack(queuedTrackId, user, true);
+            }
 	    }
         
         public QueuedTrack GetPlayingTrack()

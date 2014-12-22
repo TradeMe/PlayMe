@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace PlayMe.Server
+﻿namespace PlayMe.Server
 {
     public interface ISettings
     {
@@ -14,5 +11,6 @@ namespace PlayMe.Server
         decimal RandomWeighting { get; }
         int DontRepeatTrackForHours { get; }
         bool AutoStart { get; }
+        bool ForgetTrackThatExceedsMaxVetoes { get; }
     }
 }
