@@ -50,7 +50,7 @@ namespace PlayMe.Server
             get
             {
                 decimal parsed;
-                string unparsed = ConfigurationManager.AppSettings["RandomWeighting"]; 
+                var unparsed = ConfigurationManager.AppSettings["RandomWeighting"]; 
                 return decimal.TryParse(unparsed,out parsed) ? parsed : 1;
             }
         }
@@ -59,7 +59,7 @@ namespace PlayMe.Server
             get
             {
                 int parsed;
-                string unparsed = ConfigurationManager.AppSettings["DontRepeatTrackForHours"];
+                var unparsed = ConfigurationManager.AppSettings["DontRepeatTrackForHours"];
                 return int.TryParse(unparsed, out parsed) ? parsed : 24;
             }
         }
@@ -69,10 +69,19 @@ namespace PlayMe.Server
             get
             {
                 Boolean parsed;
-                string unparsed = ConfigurationManager.AppSettings["MusicService.AutoStart"];
+                var unparsed = ConfigurationManager.AppSettings["MusicService.AutoStart"];
                 return Boolean.TryParse(unparsed, out parsed) && parsed;
             }
         }
 
+        public bool ForgetTrackThatExceedsMaxVetoes
+        {
+            get
+            {
+                Boolean parsed;
+                var unparsed = ConfigurationManager.AppSettings["ForgetTrackThatExceedsMaxVetoes"];
+                return Boolean.TryParse(unparsed, out parsed) && parsed;
+            }
+        }
     }
 }
