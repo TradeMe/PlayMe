@@ -160,10 +160,10 @@ namespace PlayMe.Web.MusicServiceReference {
         System.Threading.Tasks.Task<PlayMe.Common.Model.QueuedTrack[]> GetQueueAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMusicService/ForgetTrack", ReplyAction="http://tempuri.org/IMusicService/ForgetTrackResponse")]
-        void ForgetTrack(System.Guid queuedTrackId, string user);
+        void ForgetTrack(System.Guid queuedTrackId, string user, bool fromVeto);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMusicService/ForgetTrack", ReplyAction="http://tempuri.org/IMusicService/ForgetTrackResponse")]
-        System.Threading.Tasks.Task ForgetTrackAsync(System.Guid queuedTrackId, string user);
+        System.Threading.Tasks.Task ForgetTrackAsync(System.Guid queuedTrackId, string user, bool fromVeto);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMusicService/SkipTrack", ReplyAction="http://tempuri.org/IMusicService/SkipTrackResponse")]
         void SkipTrack(System.Guid queuedTrackId, string user);
@@ -387,13 +387,15 @@ namespace PlayMe.Web.MusicServiceReference {
         public System.Threading.Tasks.Task<PlayMe.Common.Model.QueuedTrack[]> GetQueueAsync() {
             return base.Channel.GetQueueAsync();
         }
-        
-        public void ForgetTrack(System.Guid queuedTrackId, string user) {
-            base.Channel.ForgetTrack(queuedTrackId, user);
+
+        public void ForgetTrack(System.Guid queuedTrackId, string user, bool fromVeto)
+        {
+            base.Channel.ForgetTrack(queuedTrackId, user, fromVeto);
         }
-        
-        public System.Threading.Tasks.Task ForgetTrackAsync(System.Guid queuedTrackId, string user) {
-            return base.Channel.ForgetTrackAsync(queuedTrackId, user);
+
+        public System.Threading.Tasks.Task ForgetTrackAsync(System.Guid queuedTrackId, string user, bool fromVeto)
+        {
+            return base.Channel.ForgetTrackAsync(queuedTrackId, user, fromVeto);
         }
         
         public void SkipTrack(System.Guid queuedTrackId, string user) {

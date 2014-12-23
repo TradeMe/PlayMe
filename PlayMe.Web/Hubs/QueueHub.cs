@@ -101,7 +101,7 @@ namespace PlayMe.Web.Hubs
                 var idGuid = Guid.Empty;
                 if (!Guid.TryParse(id, out idGuid)) return;
                 var identityHelper = new IdentityHelper();
-                client.ForgetTrack(idGuid, identityHelper.GetCurrentIdentityName());
+                client.ForgetTrack(idGuid, identityHelper.GetCurrentIdentityName(), false);
             }
         }
 
