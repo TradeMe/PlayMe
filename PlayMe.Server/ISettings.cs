@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace PlayMe.Server
+﻿namespace PlayMe.Server
 {
     public interface ISettings
     {
@@ -15,5 +12,6 @@ namespace PlayMe.Server
         int DontRepeatTrackForHours { get; }
         bool AutoStart { get; }
         float StartUpVolume { get; }
+        bool ForgetTrackThatExceedsMaxVetoes { get; }
     }
 }
