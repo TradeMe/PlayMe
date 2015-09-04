@@ -30,6 +30,6 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'repositories
 
     app.start().then(function () {
         viewLocator.useConvention();
-        app.setRoot('viewmodels/shell');
+        app.setRoot('viewmodels/shell', 'entrance');
     });
 });

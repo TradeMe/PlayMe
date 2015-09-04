@@ -1,0 +1,17 @@
+{
+  "name": "PlayMe.Web",
+  "version": "1.1.0",
+  "description": "A .NET based office jukebox created by Trade Me Labs",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "https://github.com/TradeMe/PlayMe",
+  "author": "@trademelabs",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-durandal": "^1.1.7",
+    "gulp-util": "^3.0.6"
+  },
+  "dependencies": {}
+}
