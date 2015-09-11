@@ -3,6 +3,7 @@
   "version": "1.1.0",
   "description": "A .NET based office jukebox created by Trade Me Labs",
   "main": "gulpfile.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

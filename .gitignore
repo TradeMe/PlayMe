@@ -1,7 +1,6 @@
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 [Bb]in/
 [Oo]bj/
-PlayMe.Web/node_modules/
 
 # mstest test results
 TestResults
@@ -37,6 +36,8 @@ x64/
 *.vspscc
 *.vssscc
 .builds
+PlayMe.Web/node_modules/
+PlayMe.Web/Scripts/app/*.map
 
 # Visual C++ cache files
 ipch/
