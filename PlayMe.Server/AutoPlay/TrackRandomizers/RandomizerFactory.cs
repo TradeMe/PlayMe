@@ -33,7 +33,8 @@ namespace PlayMe.Server.AutoPlay.TrackRandomizers
                     new PassThroughRandomizer(logger),
                     new OffSameAlbumRandomizer(musicProviderFactory, logger),
                     new SimilarArtistRandomizer(musicProviderFactory, logger),
-                    new OffArtistsAlbumRandomizer(musicProviderFactory, logger)
+                    new OffArtistsAlbumRandomizer(musicProviderFactory, logger),
+                    new HistoryRandomizer(queuedTrackDataService, logger)
                 };
         }
 
