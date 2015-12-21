@@ -18,7 +18,7 @@ namespace PlayMe.Web.Controllers
                 if (Guid.TryParse(id, out idGuid))
                 {
                     var identityHelper = new IdentityHelper();
-                    //client.LikeTrack(idGuid, identityHelper.GetCurrentIdentityName());
+                    client.LikeTrack(idGuid, identityHelper.GetCurrentIdentityName());
                 }
             }
         }

@@ -17,7 +17,8 @@ namespace PlayMe.Web.Controllers
             string id = trackToQueue.id;
             string provider = trackToQueue.provider;
             string reason = trackToQueue.reason;
-            var user = User.Identity.Name;
+            var identityHelper = new IdentityHelper();
+            var user = identityHelper.GetCurrentIdentityName();
             using (var client = new MusicServiceClient())
             {
                 var track = client.GetTrack(id, provider, user);

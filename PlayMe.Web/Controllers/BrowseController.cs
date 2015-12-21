@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
 using PlayMe.Common.Model;
 using PlayMe.Web.MusicServiceReference;
+using PlayMe.Web.Code;
 
 namespace PlayMe.Web.Controllers
 {
@@ -21,7 +22,8 @@ namespace PlayMe.Web.Controllers
         {
             using (var client = new MusicServiceClient())
             {
-                return client.BrowseAlbum(id, provider, User.Identity.Name);
+                var identityHelper = new IdentityHelper();
+                return client.BrowseAlbum(id, provider, identityHelper.GetCurrentIdentityName());
             }
         }
 
