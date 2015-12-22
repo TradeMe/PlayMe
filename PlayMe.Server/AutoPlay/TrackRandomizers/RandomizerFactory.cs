@@ -5,6 +5,7 @@ using PlayMe.Data;
 using PlayMe.Plumbing.Diagnostics;
 using PlayMe.Server.AutoPlay.TrackRandomizers.Interfaces;
 using PlayMe.Server.Providers;
+using PlayMe.Server.Extensions;
 
 namespace PlayMe.Server.AutoPlay.TrackRandomizers
 {
@@ -39,7 +40,7 @@ namespace PlayMe.Server.AutoPlay.TrackRandomizers
 
         public ITrackRandomizer Randomize
         {
-            get { return randomizers.FirstOrDefault(p => p.Version == settings.Randomizer); }
+            get { return randomizers.Where(p => settings.Randomizers.Contains(p.Version)).Random().FirstOrDefault(); }
         }
     }
 }

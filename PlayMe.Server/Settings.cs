@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 
 namespace PlayMe.Server
 {
@@ -39,6 +41,15 @@ namespace PlayMe.Server
         public int Randomizer
         {
             get { return Convert.ToInt32(ConfigurationManager.AppSettings["Randomizer"]); }
+        }
+
+        public List<int> Randomizers
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["Randomizers"].Split(';')
+                       .Select(r => Convert.ToInt32(r)).ToList();
+            }
         }
 
         public int RandomizerRatio
