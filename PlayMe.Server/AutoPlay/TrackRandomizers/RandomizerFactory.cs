@@ -40,7 +40,14 @@ namespace PlayMe.Server.AutoPlay.TrackRandomizers
 
         public ITrackRandomizer Randomize
         {
-            get { return randomizers.Where(p => settings.Randomizers.Contains(p.Version)).Random().FirstOrDefault(); }
+            get
+            {
+                if (settings.Randomizers.Any())
+                {
+                    return randomizers.Where(p => settings.Randomizers.Contains(p.Version)).Random().FirstOrDefault();
+                }
+                return randomizers.FirstOrDefault(p => settings.Randomizer == p.Version);
+            }
         }
     }
 }

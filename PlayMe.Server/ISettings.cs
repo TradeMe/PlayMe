@@ -1,4 +1,6 @@
-﻿namespace PlayMe.Server
+﻿using System.Collections.Generic;
+
+namespace PlayMe.Server
 {
     public interface ISettings
     {
@@ -7,6 +9,7 @@
         int MaxAutoplayableTracks { get; }
         int VetoCount { get; }
         int Randomizer { get; }
+        List<int> Randomizers { get; }
         int RandomizerRatio { get; }
         decimal RandomWeighting { get; }
         int DontRepeatTrackForHours { get; }
