@@ -121,6 +121,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoPlay\TrackRandomizers\HistoryRandomizer.cs" />
     <Compile Include="Broadcast\Broadcasters\Twitter\ITwitterSettings.cs" />
     <Compile Include="Broadcast\Broadcasters\Twitter\TwitterSettings.cs" />
     <Compile Include="Broadcast\BroadcastMessageRuleResolver.cs" />
