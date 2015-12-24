@@ -20,7 +20,8 @@ namespace PlayMe.Web.Controllers
                 Guid idGuid;
                 if (Guid.TryParse(id, out idGuid))
                 {
-                    client.SkipTrack(idGuid, User.Identity.Name);
+                    var identityHelper = new IdentityHelper();
+                    client.SkipTrack(idGuid, identityHelper.GetCurrentIdentityName());
                 }
             }
         }
@@ -30,7 +31,8 @@ namespace PlayMe.Web.Controllers
         {
             using (var client = new MusicServiceClient())
             {
-                return client.IsUserAdmin(User.Identity.Name);
+                var identityHelper = new IdentityHelper();
+                return client.IsUserAdmin(identityHelper.GetCurrentIdentityName());
             }
         }
         [HttpGet]
@@ -38,7 +40,8 @@ namespace PlayMe.Web.Controllers
         {
             using (var client = new MusicServiceClient())
             {
-                return client.IsUserSuperAdmin(User.Identity.Name);
+                var identityHelper = new IdentityHelper();
+                return client.IsUserSuperAdmin(identityHelper.GetCurrentIdentityName());
             }
         }
 
@@ -63,7 +66,8 @@ namespace PlayMe.Web.Controllers
                 var username = user.Username.Split('\\');
                 user.Username = username[0] + "\\" + username[1].ToLower();
 
-                return client.AddAdminUser(user, User.Identity.Name);    
+                var identityHelper = new IdentityHelper();
+                return client.AddAdminUser(user, identityHelper.GetCurrentIdentityName());    
             }
         }
 
@@ -77,9 +81,10 @@ namespace PlayMe.Web.Controllers
                     throw new HttpResponseException(new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized));
                 }
 
-                if (User.Identity.Name.ToLower() != user.Username.ToLower())
+                var identityHelper = new IdentityHelper();
+                if (identityHelper.GetCurrentIdentityName().ToLower() != user.Username.ToLower())
                 {
-                    client.RemoveAdminUser(user.Username, User.Identity.Name);
+                    client.RemoveAdminUser(user.Username, identityHelper.GetCurrentIdentityName());
                     return true;
                 }
                 return false;

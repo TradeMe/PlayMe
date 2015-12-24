@@ -119,7 +119,8 @@ namespace PlayMe.Web.Hubs
         {
             using (var client = new MusicServiceClient())
             {
-                client.ResumeTrack(HttpContext.Current.User.Identity.Name);
+                var identityHelper = new IdentityHelper();
+                client.ResumeTrack(identityHelper.GetCurrentIdentityName());
                 Clients.All.updateCurrentTrack(client.GetPlayingTrack());
             }
         }
@@ -136,7 +137,8 @@ namespace PlayMe.Web.Hubs
         {
             using (var client = new MusicServiceClient())
             {
-                client.IncreaseVolume(HttpContext.Current.User.Identity.Name);
+                var identityHelper = new IdentityHelper();
+                client.IncreaseVolume(identityHelper.GetCurrentIdentityName());
                 Clients.All.updateCurrentVolume(client.GetCurrentVolume());
             }
         }
@@ -145,7 +147,8 @@ namespace PlayMe.Web.Hubs
         {
             using (var client = new MusicServiceClient())
             {
-                client.DecreaseVolume(HttpContext.Current.User.Identity.Name);
+                var identityHelper = new IdentityHelper();
+                client.DecreaseVolume(identityHelper.GetCurrentIdentityName());
                 Clients.All.updateCurrentVolume(client.GetCurrentVolume());
             }
         }
